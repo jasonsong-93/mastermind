@@ -15,7 +15,8 @@ namespace Mastermind
 
         public GameStatistics Run()
         {
-            return null;
+            var guessHistory = _codeBreaker.GetGuessHistory();
+            return new GameStatistics(guessHistory);
         }
     }
 }

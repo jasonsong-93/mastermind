@@ -39,13 +39,13 @@ namespace Mastermind.Tests
                 Color.Green,
                 Color.Yellow
             });
-            codeBreakerMock.SetupSequence(c => c.RunOneCheck()).Returns(false).Returns(true);
+            codeBreakerMock.SetupSequence(c => c.CheckGuess()).Returns(false).Returns(true);
             codeBreakerMock.Setup(c => c.GetGuessHistory()).Returns(historyList); 
             // Act
-            var result = ge.Run();
+            var finalStats = ge.Run();
             
             // Assert
-            
+            Assert.Equal(new GameStatistics(historyList), finalStats);
         }
     }
 }
