@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+
 namespace Mastermind
 {
     public interface ICodeBreaker
     {
-        bool RunOneGame();
+        List<Attempt> GetGuessHistory();
+        bool RunOneCheck();
     }
 }

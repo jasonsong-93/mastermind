@@ -4,5 +4,9 @@ namespace Mastermind.Tests
     {
         int GetBoardSize();
         Color[] GetSolution();
+        int GetMaximumAttempts();
+        int GetNumberOfColors();
+        bool DuplicatesAllowed();
+        bool SinglePlayerMode();
     }
 }
