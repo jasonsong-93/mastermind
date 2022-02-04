@@ -10,9 +10,9 @@ namespace Mastermind.Tests
         public void Run_ShouldReturnGameStatisticsCorrectly() // 6 colours, 4 holes
         {
             // Arrange
-            var gameSetupMock = new Mock<IGameSetup>();
+            var userInputMock = new Mock<IUserInput>();
             var codeBreakerMock = new Mock<ICodeBreaker>();
-            var ge = new GameEngine(gameSetupMock.Object, codeBreakerMock.Object);
+            var ge = new GameEngine(userInputMock.Object, codeBreakerMock.Object);
             
             var firstGuess = new[] {Color.Red, Color.Yellow, Color.Blue, Color.Green}; 
             var firstResult = new List<Color> {Color.White, Color.White, Color.White, Color.Black};

@@ -2,12 +2,12 @@ namespace Mastermind
 {
     public class GameEngine
     {
-        private readonly IGameSetup _gameSetup;
+        private readonly IUserInput _userInput;
         private readonly ICodeBreaker _codeBreaker;
 
-        public GameEngine(IGameSetup gameSetup, ICodeBreaker codeBreaker)
+        public GameEngine(IUserInput userInput, ICodeBreaker codeBreaker)
         {
-            _gameSetup = gameSetup;
+            _userInput = userInput;
             _codeBreaker = codeBreaker;
         }
 
