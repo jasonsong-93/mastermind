@@ -1,4 +1,4 @@
-namespace Mastermind.Tests
+namespace Mastermind
 {
     public interface IGameSetup
     {

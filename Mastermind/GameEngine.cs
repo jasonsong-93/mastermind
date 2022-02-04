@@ -1,5 +1,3 @@
-using Mastermind.Tests;
-
 namespace Mastermind
 {
     public class GameEngine
