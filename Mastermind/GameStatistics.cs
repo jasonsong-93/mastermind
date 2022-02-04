@@ -4,6 +4,13 @@ namespace Mastermind
 {
     public class GameStatistics : IGameStatistics
     {
+        private readonly List<Attempt> _historyList;
+
+        public GameStatistics(List<Attempt> historyList)
+        {
+            _historyList = historyList;
+        }
+
         protected bool Equals(GameStatistics other)
         {
             return Equals(_historyList, other._historyList);
@@ -22,11 +29,9 @@ namespace Mastermind
             return (_historyList != null ? _historyList.GetHashCode() : 0);
         }
 
-        private readonly List<Attempt> _historyList;
-
-        public GameStatistics(List<Attempt> historyList)
+        public List<Attempt> GetAttemptHistory()
         {
-            _historyList = historyList;
+            return _historyList;
         }
     }
 }
