@@ -7,9 +7,5 @@ namespace Mastermind
         int NumberOfColors();
         bool DuplicatesAllowed();
         bool SinglePlayerMode();
-        int GetBoardSize();
-        int GetMaximumAttempts();
-        int GetNumberOfColors();
-        Color[] GetSolution();
     }
 }
