@@ -1,14 +1,14 @@
 ﻿using Moq;
 using Xunit;
 
-namespace Mastermind.Tests;
-
-public class CodeMakerTests
+namespace Mastermind.Tests
 {
-    [Fact]
-    public void GenerateRandomCode_ShouldReturnAValidRandomCode()
+    public class CodeMakerTests
     {
-        var randomizerMock = new Mock<IRandomizer>();
-        var 
+        [Fact]
+        public void GenerateRandomCode_ShouldReturnAValidRandomCode()
+        {
+            var randomizerMock = new Mock<IRandomizer>();
+        }
     }
 }

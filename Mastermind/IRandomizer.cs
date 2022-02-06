@@ -1,5 +1,6 @@
-namespace Mastermind;
-
-public interface IRandomizer
+namespace Mastermind
 {
+    public interface IRandomizer
+    {
+    }
 }
