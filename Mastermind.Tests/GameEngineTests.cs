@@ -12,7 +12,8 @@ namespace Mastermind.Tests
             // Arrange
             var userInputMock = new Mock<IUserInput>();
             var codeBreakerMock = new Mock<ICodeBreaker>();
-            var ge = new GameEngine(userInputMock.Object, codeBreakerMock.Object);
+            var codeMakerMock = new Mock<ICodeMaker>();
+            var ge = new GameEngine(userInputMock.Object, codeBreakerMock.Object, codeMakerMock.Object);
             
             var firstGuess = new[] {Color.Red, Color.Yellow, Color.Blue, Color.Green}; 
             var firstResult = new List<Color> {Color.White, Color.White, Color.White, Color.Black};
