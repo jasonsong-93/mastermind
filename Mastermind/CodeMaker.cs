@@ -1,4 +1,7 @@
-namespace Mastermind.Tests
+using System;
+using static Mastermind.Constants;
+
+namespace Mastermind
 {
     public class CodeMaker : ICodeMaker
     {
@@ -7,12 +10,18 @@ namespace Mastermind.Tests
         public CodeMaker(IRandomizer randomizer)
         {
             _randomizer = randomizer;
-            throw new System.NotImplementedException();
         }
 
-        public Color[] GetSolutionCode()
+        public Color[] GetSolutionCode()    // randomly generates an array with 4 colours
         {
-            throw new System.NotImplementedException();
+            var result = new Color[ColoursToSelect];
+            var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
+            }
+            return result;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Mastermind.Tests
             var result = codeMaker.GetSolutionCode();
             // Assert
             Assert.Equal(new[] {Color.Red, Color.Blue, Color.Green, Color.Orange}, result);
-            
         }
     }
 }
