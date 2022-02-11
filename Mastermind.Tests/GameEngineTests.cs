@@ -23,7 +23,8 @@ namespace Mastermind.Tests
             var attempt2 = new Attempt(finalGuess, finalResult);
 
             var historyList = new List<Attempt> {attempt1, attempt2};
-            
+
+            _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken()).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.GetGuessHistory()).Returns(historyList);
             // Act
@@ -37,12 +38,11 @@ namespace Mastermind.Tests
         [Fact]
         public void Run_ShouldRunGameUntilCodeIsCracked()
         {
-            _codeBreakerMock.SetupSequence(c => c.CodeBroken()).Returns(false).Returns(false).Returns(true);
-            var solution = new[] {Color.Red, Color.Blue, Color.Green, Color.Yellow};
-            _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(solution);
+            _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
+            _codeBreakerMock.SetupSequence(c => c.CheckGuess(_mockSolution)).Returns(false).Returns(false).Returns(true);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
             ge.Run();
-            _codeBreakerMock.Verify(c => c.CheckGuess(solution), Times.Exactly(2));
+            _codeBreakerMock.Verify(c => c.CheckGuess(_mockSolution), Times.Exactly(2));
         }
     }
 }
