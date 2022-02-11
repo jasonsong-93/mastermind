@@ -12,15 +12,13 @@ namespace Mastermind
             _randomizer = randomizer;
         }
 
-        public Color[] GetSolutionCode()    // randomly generates an array with 4 colours
+        public Color[] GetSolutionCode() // randomly generates an array with 4 colours
         {
             var result = new Color[ColoursToSelect];
             var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
 
-            for (int i = 0; i < result.Length; i++)
-            {
+            for (var i = 0; i < result.Length; i++)
                 result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
-            }
             return result;
         }
     }

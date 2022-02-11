@@ -4,5 +4,4 @@ namespace Mastermind
     {
         public const int ColoursToSelect = 4;
     }
-
 }
