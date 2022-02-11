@@ -11,6 +11,11 @@ namespace Mastermind
             _historyList = historyList;
         }
 
+        public List<Attempt> GetAttemptHistory()
+        {
+            return _historyList;
+        }
+
         protected bool Equals(GameStatistics other)
         {
             return Equals(_historyList, other._historyList);
@@ -20,18 +25,13 @@ namespace Mastermind
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((GameStatistics) obj);
         }
 
         public override int GetHashCode()
         {
-            return (_historyList != null ? _historyList.GetHashCode() : 0);
-        }
-
-        public List<Attempt> GetAttemptHistory()
-        {
-            return _historyList;
+            return _historyList != null ? _historyList.GetHashCode() : 0;
         }
     }
 }

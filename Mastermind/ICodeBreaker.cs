@@ -6,5 +6,6 @@ namespace Mastermind
     {
         List<Attempt> GetGuessHistory();
         bool CheckGuess(Color[] solution);
+        bool CodeBroken();
     }
 }
