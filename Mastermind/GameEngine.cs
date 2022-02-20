@@ -17,14 +17,7 @@ namespace Mastermind
             var solution = _codeMaker.GetSolutionCode();
             while (!gameFinished)
             {
-                if (!_codeBreaker.CodeBroken())
-                {
-                    _codeBreaker.CheckGuess(solution);
-                }
-                else
-                {
-                    gameFinished = true;
-                }
+                gameFinished = _codeBreaker.CheckGuess(solution);
             }
             var guessHistory = _codeBreaker.GetGuessHistory();
             return new GameStatistics(guessHistory);
