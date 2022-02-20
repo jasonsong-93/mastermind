@@ -13,7 +13,6 @@ namespace Mastermind.Tests
             var userInputMock = new Mock<IUserInput>();
             // Act
             var codeBreaker = new CodeBreaker(userInputMock.Object);
-            codeBreaker.CodeBroken();
             // Assert
         }
     }

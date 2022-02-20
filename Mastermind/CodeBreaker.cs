@@ -19,9 +19,5 @@ namespace Mastermind
             throw new System.NotImplementedException();
         }
 
-        public bool CodeBroken()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
