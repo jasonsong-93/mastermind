@@ -25,7 +25,7 @@ namespace Mastermind.Tests
             var historyList = new List<Attempt> {attempt1, attempt2};
 
             _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
-            _codeBreakerMock.SetupSequence(c => c.CodeBroken()).Returns(false).Returns(false).Returns(true);
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.GetGuessHistory()).Returns(historyList);
             // Act
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
@@ -39,10 +39,10 @@ namespace Mastermind.Tests
         public void Run_ShouldRunGameUntilCodeIsCracked()
         {
             _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
-            _codeBreakerMock.SetupSequence(c => c.CheckGuess(_mockSolution)).Returns(false).Returns(false).Returns(true);
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
             ge.Run();
-            _codeBreakerMock.Verify(c => c.CheckGuess(_mockSolution), Times.Exactly(2));
+            _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution), Times.Exactly(3));
         }
     }
 }
