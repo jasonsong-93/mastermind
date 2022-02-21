@@ -5,9 +5,11 @@ namespace Mastermind
     public class CodeBreaker : ICodeBreaker
 
     {
+        private readonly IUserInput _userInput;
+
         public CodeBreaker(IUserInput userInput)
         {
-            throw new System.NotImplementedException();
+            _userInput = userInput;
         }
 
         public List<Attempt> GetGuessHistory()

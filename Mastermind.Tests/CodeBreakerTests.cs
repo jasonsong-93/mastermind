@@ -8,12 +8,13 @@ namespace Mastermind.Tests
         [Fact]
         public void CodeBroken_ShouldReturnTrueIfTheCodeFromUserAndSolutionAreSame()
         {
-            // Arrange
             var mockSolution = new[] {Color.Black, Color.Blue, Color.Green, Color.Purple};
+            var userGuess = new[] {Color.Black, Color.Blue, Color.Green, Color.Purple};
             var userInputMock = new Mock<IUserInput>();
-            // Act
+            userInputMock.Setup(u => u.GetUserGuess()).Returns(userGuess);
             var codeBreaker = new CodeBreaker(userInputMock.Object);
-            // Assert
+            var result = codeBreaker.CodeBroken(mockSolution);
+            Assert.True(result);
         }
     }
 }
