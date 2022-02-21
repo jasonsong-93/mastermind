@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Mastermind
 {
@@ -19,7 +20,7 @@ namespace Mastermind
 
         public bool CodeBroken(Color[] solution)
         {
-            throw new System.NotImplementedException();
+            return solution.SequenceEqual(_userInput.GetUserGuess());
         }
     }
 }
