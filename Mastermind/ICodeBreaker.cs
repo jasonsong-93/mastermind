@@ -5,6 +5,6 @@ namespace Mastermind
     public interface ICodeBreaker
     {
         List<Attempt> GetGuessHistory();
-        bool CheckGuess(Color[] solution);
+        bool CodeBroken(Color[] solution);
     }
 }

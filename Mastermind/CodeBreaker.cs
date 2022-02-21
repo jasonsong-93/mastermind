@@ -7,6 +7,7 @@ namespace Mastermind
     {
         public CodeBreaker(IUserInput userInput)
         {
+            throw new System.NotImplementedException();
         }
 
         public List<Attempt> GetGuessHistory()
@@ -14,10 +15,9 @@ namespace Mastermind
             throw new System.NotImplementedException();
         }
 
-        public bool CheckGuess(Color[] solution)
+        public bool CodeBroken(Color[] solution)
         {
             throw new System.NotImplementedException();
         }
-
     }
 }
