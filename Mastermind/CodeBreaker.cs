@@ -19,8 +19,6 @@ public class CodeBreaker : ICodeBreaker
     public bool CodeBroken(Color[] solution)
     {
         var guess = _userInput.PlayerGuess();
-        var result = checker.GetResult();
-        Attempts.Add(guess, result);
-        return solution.SequenceEqual(_userInput.PlayerGuess());
+        return solution.SequenceEqual(guess);
     }
 }
