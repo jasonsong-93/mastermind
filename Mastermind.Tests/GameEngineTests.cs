@@ -26,7 +26,7 @@ namespace Mastermind.Tests
 
             _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
-            _codeBreakerMock.Setup(c => c.GetGuessHistory()).Returns(historyList);
+            _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
             var finalStats = ge.Run();

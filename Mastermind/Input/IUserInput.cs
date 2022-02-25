@@ -7,5 +7,6 @@ namespace Mastermind
         int NumberOfColors();
         bool DuplicatesAllowed();
         bool SinglePlayerMode();
+        Color[] PlayerGuess();
     }
 }

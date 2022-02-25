@@ -19,7 +19,7 @@ namespace Mastermind
             {
                 gameFinished = _codeBreaker.CodeBroken(solution);
             }
-            var guessHistory = _codeBreaker.GetGuessHistory();
+            var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory);
         }
     }

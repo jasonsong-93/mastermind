@@ -4,7 +4,12 @@ namespace Mastermind
 {
     public interface ICodeBreaker
     {
-        List<Attempt> GetGuessHistory();
         bool CodeBroken(Color[] solution);
+
+        List<Attempt> Attempts
+        {
+            get;
+            set;
+        }
     }
 }

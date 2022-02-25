@@ -1,6 +1,6 @@
 using System;
 
-namespace Mastermind
+namespace Mastermind.Input
 {
     class UserInput : IUserInput
     {
@@ -27,6 +27,11 @@ namespace Mastermind
         public bool SinglePlayerMode()
         {
             throw new System.NotImplementedException();
+        }
+
+        public Color[] PlayerGuess()
+        {
+            throw new NotImplementedException();
         }
     }
 }
