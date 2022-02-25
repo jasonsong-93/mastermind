@@ -28,4 +28,12 @@ public class CodeBreakerTests
         var result = codeBreaker.CodeBroken(_mockSolution);
         Assert.False(result);
     }
+
+    [Fact]
+    public void CodeBroken_ShouldCallArrayCheckerToReturnResult()
+    {
+        _userInputMock.Setup(u => u.PlayerGuess()).Returns(_playerGuessCorrect);
+        var codeBreaker = new CodeBreaker(_userInputMock.Object);
+        
+    }
 }
