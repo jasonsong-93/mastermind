@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Mastermind.Input;
+using Moq;
 using Xunit;
 
 namespace Mastermind.Tests;

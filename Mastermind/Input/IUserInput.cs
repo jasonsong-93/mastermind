@@ -1,12 +1,11 @@
-namespace Mastermind
+namespace Mastermind.Input;
+
+public interface IUserInput
 {
-    public interface IUserInput
-    {
-        int BoardSize();
-        int MaximumAttempts();
-        int NumberOfColors();
-        bool DuplicatesAllowed();
-        bool SinglePlayerMode();
-        Color[] PlayerGuess();
-    }
+    int BoardSize();
+    int MaximumAttempts();
+    int NumberOfColors();
+    bool DuplicatesAllowed();
+    bool SinglePlayerMode();
+    Color[] PlayerGuess();
 }
