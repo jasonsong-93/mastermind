@@ -29,4 +29,5 @@ public class CodeBreakerTests
         var result = codeBreaker.CodeBroken(_mockSolution);
         Assert.False(result);
     }
+
 }

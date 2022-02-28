@@ -17,11 +17,13 @@ public class CodeBreaker : ICodeBreaker
     public bool CodeBroken(Color[] solution)
     {
         var guess = _userInput.PlayerGuess();
+        
+        // If the player's guess is incorrect
+        // we need to return the result 
         var result = CalculateResult(guess, solution);
-        var newAttempt = new Attempt(guess, result);
+
         if (!solution.SequenceEqual(guess))
         {
-            var thingToPrint = CalculateResult(guess, solution);
             return false;
         }
         return true;
@@ -34,18 +36,26 @@ public class CodeBreaker : ICodeBreaker
         var result = new List<Color>();
         for (var i = 0; i < guess.Length; ++i)
         {
-            if (solution[i] == guess[i])
+            if (solutionColorFrequencyDictionary.ContainsKey(guess[i]) &&
+                solutionColorFrequencyDictionary[guess[i]] > 0)
             {
-                result.Add(Color.Black);
-                solutionColorFrequencyDictionary[solution[i]]--;
-            }
-            else if (solutionColorFrequencyDictionary.ContainsKey(guess[i]) &&
-                     solutionColorFrequencyDictionary[guess[i]] > 0)
-            {
-                result.Add(Color.White);
-                solutionColorFrequencyDictionary[guess[i]]--;
+                if (solution[i] == guess[i])
+                {
+                    result.Add(Color.Black);
+                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                }
+                else
+                {
+                    result.Add(Color.White);
+                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                }
             }
         }
         return result;
+    }
+
+    private static void DecrementFrequency(Dictionary<Color, int> dictionary, Color keyToDecrement)
+    {
+        dictionary[keyToDecrement]--;
     }
 }
