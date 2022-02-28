@@ -38,19 +38,24 @@ public class CodeBreaker : ICodeBreaker
         return true;
     }
 
-    private static List<Color> CalculateResult(Color[] guess, Color[] solution)
+    public static List<Color> CalculateResult(Color[] guess, Color[] solution)
     {
-        // Create a dictionary where the keys are unique values in the solution, and the values are the frequencies
-        var frequency = solution.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
-        
+        var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
+            x.Key, x => x.Count());
         var result = new List<Color>();
-        //
-        for (var i = 0; i < solution.Length; ++i)
+        
+        for (var i = 0; i < guess.Length; ++i)
         {
-            if (solution[i] == guess[i] && solution[i].Equals(guess[i]))
+            if (solution[i] == guess[i])
             {
                 result.Add(Color.Black);
-                break;
+                solutionColorFrequencyDictionary[solution[i]]--;
+            }
+            else if (solutionColorFrequencyDictionary.ContainsKey(guess[i]) &&
+                     solutionColorFrequencyDictionary[guess[i]] > 0)
+            {
+                result.Add(Color.White);
+                solutionColorFrequencyDictionary[guess[i]]--;
             }
         }
         return result;
