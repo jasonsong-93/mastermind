@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Input;
 
@@ -17,15 +18,17 @@ public class CodeBreaker : ICodeBreaker
     public bool CodeBroken(Color[] solution)
     {
         var guess = _userInput.PlayerGuess();
-        
-        // If the player's guess is incorrect
-        // we need to return the result 
         var result = CalculateResult(guess, solution);
-
         if (!solution.SequenceEqual(guess))
         {
+            Console.WriteLine("NOT BROKEN");
+            Console.WriteLine(result);
             return false;
         }
+
+        Console.WriteLine("BROKEN");
+        Console.WriteLine(result);
+
         return true;
     }
 
@@ -36,8 +39,8 @@ public class CodeBreaker : ICodeBreaker
         var result = new List<Color>();
         for (var i = 0; i < guess.Length; ++i)
         {
-            if (solutionColorFrequencyDictionary.ContainsKey(guess[i]) &&
-                solutionColorFrequencyDictionary[guess[i]] > 0)
+            var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
+            if (frequencyGreaterThanZero)
             {
                 if (solution[i] == guess[i])
                 {
