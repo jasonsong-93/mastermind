@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Mastermind.Input;
 
@@ -21,17 +22,11 @@ namespace Mastermind
             var result = CalculateResult(guess, solution);
             if (!solution.SequenceEqual(guess))
             {
-                Console.WriteLine("NOT BROKEN");
-                Console.WriteLine(result);
                 return false;
             }
-
-            Console.WriteLine("BROKEN");
-            Console.WriteLine(result);
-
             return true;
         }
-
+ 
         private static List<Color> CalculateResult(Color[] guess, Color[] solution)
         {
             var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 

@@ -5,6 +5,7 @@ namespace Mastermind
     class Randomizer : IRandomizer
     {
         private readonly Random _rand = new();
+        
         public int GenerateRandomInt(int maxRange)
         {
             

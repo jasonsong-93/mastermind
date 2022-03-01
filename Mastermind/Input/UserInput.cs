@@ -4,9 +4,10 @@ namespace Mastermind.Input
 {
     class UserInput : IUserInput
     {
+        // Parses the user input and converts it to a Color[] 
         public Color[] PlayerGuess()
         {
-            throw new NotImplementedException();
+            return new[] {Color.Black};
         }
     }
 }
