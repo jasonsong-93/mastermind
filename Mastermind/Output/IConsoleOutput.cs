@@ -1,6 +1,8 @@
-﻿namespace Mastermind.Output;
-
-public interface IConsoleOutput
+﻿
+namespace Mastermind.Output
 {
-    public void WriteLine(string s);
+    public interface IConsoleOutput
+    {
+        public void WriteLine(string s);
+    }
 }

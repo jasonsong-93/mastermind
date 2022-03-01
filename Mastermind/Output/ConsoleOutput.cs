@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Mastermind.Output;
-
-class ConsoleOutput : IConsoleOutput
+namespace Mastermind.Output
 {
-    public void WriteLine(string s)
+    class ConsoleOutput : IConsoleOutput
     {
-        Console.WriteLine(s);
+        public void WriteLine(string s)
+        {
+            Console.WriteLine(s);
+        }
     }
 }

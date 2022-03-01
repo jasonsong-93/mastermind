@@ -3,62 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Input;
 
-namespace Mastermind;
-
-public class CodeBreaker : ICodeBreaker
+namespace Mastermind
 {
-    private readonly IUserInput _userInput;
-    public List<Attempt> Attempts { get; set; }
-
-    public CodeBreaker(IUserInput userInput)
+    public class CodeBreaker : ICodeBreaker
     {
-        _userInput = userInput;
-    }
+        private readonly IUserInput _userInput;
+        public List<Attempt> Attempts { get; set; }
 
-    public bool CodeBroken(Color[] solution)
-    {
-        var guess = _userInput.PlayerGuess();
-        var result = CalculateResult(guess, solution);
-        if (!solution.SequenceEqual(guess))
+        public CodeBreaker(IUserInput userInput)
         {
-            Console.WriteLine("NOT BROKEN");
-            Console.WriteLine(result);
-            return false;
+            _userInput = userInput;
         }
 
-        Console.WriteLine("BROKEN");
-        Console.WriteLine(result);
-
-        return true;
-    }
-
-    private static List<Color> CalculateResult(Color[] guess, Color[] solution)
-    {
-        var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
-            x.Key, x => x.Count());
-        var result = new List<Color>();
-        for (var i = 0; i < guess.Length; ++i)
+        public bool CodeBroken(Color[] solution)
         {
-            var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
-            if (frequencyGreaterThanZero)
+            var guess = _userInput.PlayerGuess();
+            var result = CalculateResult(guess, solution);
+            if (!solution.SequenceEqual(guess))
             {
-                if (solution[i] == guess[i])
+                Console.WriteLine("NOT BROKEN");
+                Console.WriteLine(result);
+                return false;
+            }
+
+            Console.WriteLine("BROKEN");
+            Console.WriteLine(result);
+
+            return true;
+        }
+
+        private static List<Color> CalculateResult(Color[] guess, Color[] solution)
+        {
+            var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
+                x.Key, x => x.Count());
+            var result = new List<Color>();
+            for (var i = 0; i < guess.Length; ++i)
+            {
+                var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
+                if (frequencyGreaterThanZero)
                 {
-                    result.Add(Color.Black);
-                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
-                }
-                else
-                {
-                    result.Add(Color.White);
-                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                    if (solution[i] == guess[i])
+                    {
+                        result.Add(Color.Black);
+                        DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                    }
+                    else
+                    {
+                        result.Add(Color.White);
+                        DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                    }
                 }
             }
+            return result;
         }
-        return result;
-    }
 
-    private static void DecrementFrequency(Dictionary<Color, int> dictionary, Color keyToDecrement)
-    {
-        dictionary[keyToDecrement]--;
+        private static void DecrementFrequency(Dictionary<Color, int> dictionary, Color keyToDecrement)
+        {
+            dictionary[keyToDecrement]--;
+        }
     }
 }

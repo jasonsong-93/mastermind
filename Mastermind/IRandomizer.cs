@@ -1,6 +1,8 @@
-﻿namespace Mastermind;
-
-public interface IRandomizer
+﻿
+namespace Mastermind
 {
-    int GenerateRandomInt(int maxRange);
+    public interface IRandomizer
+    {
+        int GenerateRandomInt(int maxRange);
+    }
 }

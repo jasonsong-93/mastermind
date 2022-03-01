@@ -1,6 +1,7 @@
-namespace Mastermind.Input;
-
-public interface IUserInput
+namespace Mastermind.Input
 {
-    Color[] PlayerGuess();
+    public interface IUserInput
+    {
+        Color[] PlayerGuess();
+    }
 }
