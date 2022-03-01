@@ -1,24 +1,25 @@
 ﻿using System;
 
-namespace Mastermind;
-
-public class CodeMaker : ICodeMaker
+namespace Mastermind
 {
-    private readonly IRandomizer _randomizer;
-    private const int MaxNumColors = 4;
-
-    public CodeMaker(IRandomizer randomizer)
+    public class CodeMaker : ICodeMaker
     {
-        _randomizer = randomizer;
-    }
+        private readonly IRandomizer _randomizer;
+        private const int MaxNumColors = 4;
 
-    public Color[] GetSolutionCode()
-    {
-        var result = new Color[MaxNumColors];
-        var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
+        public CodeMaker(IRandomizer randomizer)
+        {
+            _randomizer = randomizer;
+        }
 
-        for (var i = 0; i < result.Length; i++)
-            result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
-        return result;
+        public Color[] GetSolutionCode()
+        {
+            var result = new Color[MaxNumColors];
+            var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
+
+            for (var i = 0; i < result.Length; i++)
+                result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
+            return result;
+        }
     }
 }
