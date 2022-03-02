@@ -24,5 +24,15 @@ namespace Mastermind.Input
             }
             return colorArray;
         }
+
+        public int MaxCodePegs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int MaxTurns()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

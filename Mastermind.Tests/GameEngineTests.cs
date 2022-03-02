@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mastermind.Input;
 using Moq;
 using Xunit;
 
@@ -8,6 +9,9 @@ namespace Mastermind.Tests
     {
         private readonly Mock<ICodeBreaker> _codeBreakerMock = new();
         private readonly Mock<ICodeMaker> _codeMakerMock = new();
+        private readonly Mock<IUserInput> _userInput = new();
+        private readonly Mock<IUserOutput> _userOutput = new();
+        private readonly Mock<IGameState> _gameState = new();
         private readonly Color[] _mockSolution = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
 
         [Fact]
@@ -23,12 +27,12 @@ namespace Mastermind.Tests
             var attempt2 = new Attempt(finalGuess, finalResult);
 
             var historyList = new List<Attempt> {attempt1, attempt2};
-
+            _gameState.Setup(g => g.MaxRounds).Returns(60);
             _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
-            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
+            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
             var finalStats = ge.Run();
             // Assert
             Assert.Equal(new GameStatistics(historyList), finalStats);
@@ -37,9 +41,10 @@ namespace Mastermind.Tests
         [Fact]
         public void Run_ShouldRunGameUntilCodeIsCracked()
         {
+            _gameState.Setup(g => g.MaxRounds).Returns(60);
             _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
-            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object);
+            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
             ge.Run();
             _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution), Times.Exactly(3));
         }

@@ -19,7 +19,5 @@ namespace Mastermind.Tests
             var broken = codeBreaker.CodeBroken(_mockSolution);
             Assert.Equal(result, broken);
         }
-        
-        
     }
 }
