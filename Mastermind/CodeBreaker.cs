@@ -16,10 +16,13 @@ namespace Mastermind
             _userInput = userInput;
         }
 
+        // Checks if the code is broken
         public bool CodeBroken(Color[] solution)
         {
             var guess = _userInput.PlayerGuess();
             var result = CalculateResult(guess, solution);
+            var attempt = new Attempt(guess, result);
+            Attempts.Add(attempt);
             if (!solution.SequenceEqual(guess))
             {
                 return false;
