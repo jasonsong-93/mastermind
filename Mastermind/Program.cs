@@ -1,4 +1,5 @@
 ﻿using System;
+using Mastermind.Input;
 
 namespace Mastermind
 {
@@ -6,6 +7,13 @@ namespace Mastermind
     {
         private static void Main(string[] args)
         {
+            // var rand = new Randomizer();
+            // var ci = new ConsoleInput();
+            // var ui = new UserInput(ci);
+            // var maker = new CodeMaker(rand);
+            // var breaker = new CodeBreaker(ui);
+            // var ge = new GameEngine(breaker, maker);
+            // ge.Run();
             Console.WriteLine("Hello World!");
         }
     }

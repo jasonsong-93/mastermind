@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Mastermind.Input;
 
@@ -15,23 +16,20 @@ namespace Mastermind
             _userInput = userInput;
         }
 
+        // Checks if the code is broken
         public bool CodeBroken(Color[] solution)
         {
             var guess = _userInput.PlayerGuess();
             var result = CalculateResult(guess, solution);
+            var attempt = new Attempt(guess, result);
+            Attempts.Add(attempt);
             if (!solution.SequenceEqual(guess))
             {
-                Console.WriteLine("NOT BROKEN");
-                Console.WriteLine(result);
                 return false;
             }
-
-            Console.WriteLine("BROKEN");
-            Console.WriteLine(result);
-
             return true;
         }
-
+ 
         private static List<Color> CalculateResult(Color[] guess, Color[] solution)
         {
             var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
