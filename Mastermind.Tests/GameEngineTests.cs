@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Mastermind.Input;
+using Mastermind.Output;
 using Moq;
 using Xunit;
 
@@ -22,13 +23,14 @@ namespace Mastermind.Tests
             var firstResult = new List<Color> {Color.White, Color.White, Color.White, Color.Black};
             var finalGuess = new[] {Color.Red, Color.Blue, Color.Green, Color.Yellow};
             var finalResult = new List<Color> {Color.Black, Color.Black, Color.Black, Color.Black};
-
+            
             var attempt1 = new Attempt(firstGuess, firstResult);
             var attempt2 = new Attempt(finalGuess, finalResult);
 
             var historyList = new List<Attempt> {attempt1, attempt2};
             _gameState.Setup(g => g.MaxRounds).Returns(60);
-            _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
+            _gameState.Setup(g => g.NumCodePegs).Returns(4);
+            _codeMakerMock.Setup(c => c.GenerateRandomSolutionCode(4)).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
@@ -42,7 +44,8 @@ namespace Mastermind.Tests
         public void Run_ShouldRunGameUntilCodeIsCracked()
         {
             _gameState.Setup(g => g.MaxRounds).Returns(60);
-            _codeMakerMock.Setup(c => c.GetSolutionCode()).Returns(_mockSolution);
+            _gameState.Setup(g => g.NumCodePegs).Returns(4);
+            _codeMakerMock.Setup(c => c.GenerateRandomSolutionCode(4)).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
             ge.Run();

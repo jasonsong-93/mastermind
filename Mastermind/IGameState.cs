@@ -1,11 +1,12 @@
 using Mastermind.Input;
+using Mastermind.Output;
 
 namespace Mastermind
 {
     public interface IGameState
     {
         void Initialize(IUserInput userInput, IUserOutput userOutput);
-        int MaxCodePegs { get; set; }
+        int NumCodePegs { get; set; }
         int MaxRounds { get; set; }
     }
 }

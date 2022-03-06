@@ -1,18 +1,18 @@
-using System.Reflection.Metadata;
 using Mastermind.Input;
+using Mastermind.Output;
 
 namespace Mastermind
 {
-    class GameState : IGameState
+    public class GameState : IGameState
     {
-        public int MaxCodePegs { get; set; }
-        public int MaxRounds { get; set; }
+        public int NumCodePegs { get; set; }
 
+        public int MaxRounds { get; set; }
         public void Initialize(IUserInput userInput, IUserOutput userOutput)
         {
-            userOutput.PrintInitializationMessage();
+            MaxRounds = userInput.ValidateMaxRounds();
+            NumCodePegs = userInput.ValidateNumCodePegs();
         }
-      
+
     }
-    
 }

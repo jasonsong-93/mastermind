@@ -23,18 +23,24 @@ namespace Mastermind
 
         public GameStatistics Run()
         {
-            // Initialise game settings
-            _gameState.Initialize(_userInput, _userOutput);
-            var maxPegs = _gameState.MaxCodePegs;
-            var maxRounds = _gameState.MaxRounds;
-            var gameFinished = false;
-            var solution = _codeMaker.GetSolutionCode();
             var numRounds = 0;
+            // Initialize handles the user input etc and stores the information of the game
+            _gameState.Initialize(_userInput, _userOutput);
+            var maxPegs = _gameState.NumCodePegs;
+            var maxRounds = _gameState.MaxRounds;
+            
+            // Start the main game loop
+            var gameFinished = false;
+            // 1. Codemaker generates a solution
+            var solution = _codeMaker.GenerateRandomSolutionCode(maxPegs);
+            // 2. As long as the maxrounds hasn't been reached and the code hasn't been broken
             while (!gameFinished && (numRounds < maxRounds))
             {
+                // 3. Keep breaking the code
                 gameFinished = _codeBreaker.CodeBroken(solution);
                 numRounds++;
             }
+            // 4. Get the attempts the user has made so we can pass it into the game statistics class
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory);
         }

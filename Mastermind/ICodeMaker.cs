@@ -2,6 +2,6 @@ namespace Mastermind
 {
     public interface ICodeMaker
     {
-        Color[] GetSolutionCode();
+        Color[] GenerateRandomSolutionCode(int NumberOfPegs);
     }
 }

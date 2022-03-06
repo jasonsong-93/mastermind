@@ -1,5 +1,6 @@
 ﻿using System;
 using Mastermind.Input;
+using Mastermind.Output;
 
 namespace Mastermind
 {
@@ -13,6 +14,7 @@ namespace Mastermind
             // var maker = new CodeMaker(rand);
             // var breaker = new CodeBreaker(ui);
             // var ge = new GameEngine(breaker, maker);
+            var gameState = new GameState();
             // ge.Run();
             Console.WriteLine("Hello World!");
         }

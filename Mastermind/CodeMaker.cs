@@ -12,7 +12,7 @@ namespace Mastermind
             _randomizer = randomizer;
         }
 
-        public Color[] GetSolutionCode()
+        public Color[] GetSolutionCode(int MaxPegs)
         {
             var result = new Color[MaxNumColors];
             var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
@@ -20,6 +20,11 @@ namespace Mastermind
             for (var i = 0; i < result.Length; i++)
                 result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
             return result;
+        }
+
+        public Color[] GenerateRandomSolutionCode(int NumberOfPegs)
+        {
+            throw new NotImplementedException();
         }
     }
 }

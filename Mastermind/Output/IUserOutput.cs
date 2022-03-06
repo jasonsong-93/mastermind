@@ -1,4 +1,4 @@
-namespace Mastermind
+namespace Mastermind.Output
 {
     public interface IUserOutput
     {
