@@ -17,7 +17,8 @@ namespace Mastermind
             var gameState = new GameState();
 
             var ge = new GameEngine(breaker, maker, userInput, userOutput, gameState);
-            ge.Run();
+            var stats = ge.Run();
+            io.Write(stats.ToString());
         }
     }
 }

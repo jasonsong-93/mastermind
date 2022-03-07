@@ -9,6 +9,11 @@ namespace Mastermind.IO
             Console.WriteLine(s);
         }
 
+        public void Write(string s)
+        {
+            Console.Write(s);
+        }
+
         public string ReadLine()
         {
             return Console.ReadLine();

@@ -40,7 +40,11 @@ namespace Mastermind
                 }
                 else
                 {
-                    _userOutput.DisplayIncorrect();
+                    Console.WriteLine("***SOLUTION***: ");
+                    foreach (var color in solution)
+                    {
+                        Console.WriteLine(color);
+                    }
                 }
                 numRounds++;
             }

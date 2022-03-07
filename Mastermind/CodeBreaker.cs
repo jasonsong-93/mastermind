@@ -27,6 +27,9 @@ namespace Mastermind
             Attempts.Add(attempt);
             if (!solution.SequenceEqual(guess))
             {
+                Console.WriteLine("Your sequence isn't matching, here's the clues");
+                _userOutput.DisplayResult(result);
+                Console.WriteLine();
                 return false;
             }
             return true;
@@ -40,11 +43,7 @@ namespace Mastermind
             for (var i = 0; i < guess.Length; ++i)
             {
                 var containsKey = solutionColorFrequencyDictionary.ContainsKey(guess[i]);
-                if (!containsKey)
-                {
-                    result.Add(default);
-                }
-                else
+                if (containsKey)
                 {
                     var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
                     if (frequencyGreaterThanZero)
@@ -61,7 +60,6 @@ namespace Mastermind
                         }
                     }
                 }
-            
             }
             return result;
         }

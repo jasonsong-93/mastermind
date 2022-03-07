@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Mastermind.IO
 {
     public interface IUserOutput
@@ -5,5 +7,6 @@ namespace Mastermind.IO
         void DisplayIntroMessage();
         void DisplayFinished();
         void DisplayIncorrect();
+        void DisplayResult(List<Color> result);
     }
 }

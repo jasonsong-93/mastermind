@@ -9,8 +9,8 @@ namespace Mastermind.Tests
     {
         private readonly Mock<ICodeBreaker> _codeBreakerMock = new();
         private readonly Mock<ICodeMaker> _codeMakerMock = new();
-        private readonly Mock<IUserInput> _userInput = new();
-        private readonly Mock<IUserOutput> _userOutput = new();
+        private readonly Mock<IUserInput> _userInputMock = new();
+        private readonly Mock<IUserOutput> _userOutputMock = new();
         private readonly Mock<IGameState> _gameState = new();
         private readonly Color[] _mockSolution = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
 
@@ -33,7 +33,7 @@ namespace Mastermind.Tests
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
-            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
+            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object, _userOutputMock.Object, _gameState.Object);
             var finalStats = ge.Run();
             // Assert
             Assert.Equal(new GameStatistics(historyList), finalStats);
@@ -46,7 +46,7 @@ namespace Mastermind.Tests
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
             _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
-            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
+            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object, _userOutputMock.Object, _gameState.Object);
             ge.Run();
             _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution), Times.Exactly(3));
         }

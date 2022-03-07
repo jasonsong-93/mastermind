@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Mastermind.IO
 {
     class UserOutput : IUserOutput
@@ -23,7 +26,15 @@ namespace Mastermind.IO
         public void DisplayIncorrect()
         {
 
-            _consoleIO.WriteLine("WRONG");
+            _consoleIO.WriteLine("Please try again");
+        }
+
+        public void DisplayResult(List<Color> result)
+        {
+            foreach (var color in result)
+            {
+                _consoleIO.Write(color + " ");
+            }
         }
     }
 }

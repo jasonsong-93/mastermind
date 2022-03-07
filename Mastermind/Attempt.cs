@@ -4,8 +4,8 @@ namespace Mastermind
 {
     public class Attempt
     {
-        private readonly Color[] _guess;
-        private readonly List<Color> _result;
+        public readonly Color[] _guess;
+        public readonly List<Color> _result;
 
         public Attempt(Color[] guess, List<Color> result)
         {
