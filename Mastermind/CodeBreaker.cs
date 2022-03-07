@@ -9,7 +9,7 @@ namespace Mastermind
     {
         private readonly IUserInput _userInput;
         private readonly IUserOutput _userOutput;
-        public List<Attempt> Attempts { get; set; }
+        public List<Attempt> Attempts { get; }
 
         public CodeBreaker(IUserInput userInput, IUserOutput userOutput)
         {

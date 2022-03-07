@@ -13,11 +13,13 @@ namespace Mastermind.Tests
         [Theory]
         [InlineData(new[] {Color.Blue, Color.Blue, Color.Green, Color.Orange, Color.Purple}, true)]
         [InlineData(new[] {Color.Blue, Color.Yellow, Color.Green, Color.Orange, Color.Purple}, false)]
+        [InlineData(new[] {Color.Blue, Color.Blue, Color.Blue, Color.Blue, Color.Blue}, false)]
         public void CodeBroken_ShouldReturnTrueOrFalseDependingOnGuess(Color[] guess, bool result)
         {
             _userInputMock.Setup(u => u.PlayerGuess()).Returns(guess);
             var codeBreaker = new CodeBreaker(_userInputMock.Object, _userOutputMock.Object);
             var broken = codeBreaker.CodeBroken(_mockSolution);
+            
             Assert.Equal(result, broken);
         }
     }

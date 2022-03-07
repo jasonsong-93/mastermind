@@ -56,5 +56,18 @@ namespace Mastermind.Tests
             ge.Run();
             _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution), Times.Exactly(3));
         }
+
+        [Fact]
+        public void Run_ShouldStopGameIfCodeIsNotBrokenAfterMaxRounds()
+        {
+            _gameState.Setup(g => g.MaxRounds).Returns(2);
+            _gameState.Setup(g => g.NumCodePegs).Returns(4);
+            _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false);
+            var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object,
+                _userOutputMock.Object, _gameState.Object);
+            ge.Run();
+            _userOutputMock.Verify(u=>u.DisplayMaxRoundsExceeded(), Times.Once);
+        }
     }
 }

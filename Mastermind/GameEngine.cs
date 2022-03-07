@@ -3,7 +3,7 @@ using Mastermind.IO;
 
 namespace Mastermind
 {
-    public class GameEngine
+    public class GameEngine : IGameEngine
     {
         private readonly ICodeBreaker _codeBreaker;
         private readonly ICodeMaker _codeMaker;

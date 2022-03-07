@@ -11,25 +11,7 @@ namespace Mastermind
         {
             _historyList = historyList;
         }
-
-        protected bool Equals(GameStatistics other)
-        {
-            return Equals(_historyList, other._historyList);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((GameStatistics) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return _historyList != null ? _historyList.GetHashCode() : 0;
-        }
-
+        
         public override string ToString()
         {
             var result = "";

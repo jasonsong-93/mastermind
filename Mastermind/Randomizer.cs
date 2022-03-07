@@ -2,9 +2,14 @@ using System;
 
 namespace Mastermind
 {
-    internal class Randomizer : IRandomizer
+    public class Randomizer : IRandomizer
     {
-        private readonly Random _rand = new();
+        private readonly Random _rand;
+
+        public Randomizer(Random rand)
+        {
+            _rand = rand;
+        }
 
         public int GenerateRandomInt(int maxRange)
         {
