@@ -35,11 +35,11 @@ namespace Mastermind
             return true;
         }
  
-        private static List<Color> CalculateResult(Color[] guess, Color[] solution)
+        private static List<ResultColor> CalculateResult(Color[] guess, Color[] solution)
         {
             var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
                 x.Key, x => x.Count());
-            var result = new List<Color>();
+            var result = new List<ResultColor>();
             for (var i = 0; i < guess.Length; ++i)
             {
                 var containsKey = solutionColorFrequencyDictionary.ContainsKey(guess[i]);
@@ -50,12 +50,12 @@ namespace Mastermind
                     {
                         if (solution[i] == guess[i])
                         {
-                            result.Add(Color.Black);
+                            result.Add(ResultColor.Black);
                             DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
                         }
                         else
                         {
-                            result.Add(Color.White);
+                            result.Add(ResultColor.White);
                             DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
                         }
                     }

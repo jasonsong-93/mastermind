@@ -19,9 +19,9 @@ namespace Mastermind.Tests
         {
 
             var firstGuess = new[] {Color.Red, Color.Yellow, Color.Blue, Color.Green};
-            var firstResult = new List<Color> {Color.White, Color.White, Color.White, Color.Black};
+            var firstResult = new List<ResultColor> {ResultColor.White, ResultColor.White, ResultColor.White, ResultColor.Black};
             var finalGuess = new[] {Color.Red, Color.Blue, Color.Green, Color.Yellow};
-            var finalResult = new List<Color> {Color.Black, Color.Black, Color.Black, Color.Black};
+            var finalResult = new List<ResultColor> {ResultColor.Black, ResultColor.Black, ResultColor.Black, ResultColor.Black};
             
             var attempt1 = new Attempt(firstGuess, firstResult);
             var attempt2 = new Attempt(finalGuess, finalResult);

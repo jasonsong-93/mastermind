@@ -13,8 +13,7 @@ namespace Mastermind
         public Color[] GetSolutionCode(int numPegs)
         {
             var result = new Color[numPegs];
-            var colors = Enum.GetValues(typeof(Color)); // stores the enums into array type
-
+            var colors = Enum.GetValues(typeof(Color));
             for (var i = 0; i < result.Length; i++)
                 result[i] = (Color) colors.GetValue(_randomizer.GenerateRandomInt(colors.Length));
             return result;

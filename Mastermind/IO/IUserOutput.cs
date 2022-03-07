@@ -7,7 +7,7 @@ namespace Mastermind.IO
         void DisplayIntroMessage();
         void DisplayFinished();
         void DisplayIncorrect();
-        void DisplayResult(List<Color> result);
+        void DisplayResult(List<ResultColor> result);
         void DisplayMaxRoundsExceeded();
     }
 }
