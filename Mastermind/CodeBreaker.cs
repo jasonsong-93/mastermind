@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Mastermind.IO;
 
@@ -32,12 +31,13 @@ namespace Mastermind
                 Console.WriteLine();
                 return false;
             }
+
             return true;
         }
- 
+
         private static List<ResultColor> CalculateResult(Color[] guess, Color[] solution)
         {
-            var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x => 
+            var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x =>
                 x.Key, x => x.Count());
             var result = new List<ResultColor>();
             for (var i = 0; i < guess.Length; ++i)
@@ -61,6 +61,7 @@ namespace Mastermind
                     }
                 }
             }
+
             return result;
         }
 

@@ -8,7 +8,7 @@ namespace Mastermind
 
         public int MaxRounds { get; set; }
 
-        public void Initialize(IUserInput userInput, IUserOutput userOutput)
+        public void Initialize(IUserInput userInput)
         {
             MaxRounds = userInput.GetValidMaxRounds();
             NumCodePegs = userInput.ValidateNumCodePegs();

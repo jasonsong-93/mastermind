@@ -4,13 +4,13 @@ namespace Mastermind
 {
     public class Attempt
     {
-        public readonly Color[] _guess;
-        public readonly List<ResultColor> _result;
+        public readonly Color[] Guess;
+        public readonly List<ResultColor> Result;
 
         public Attempt(Color[] guess, List<ResultColor> result)
         {
-            _guess = guess;
-            _result = result;
+            Guess = guess;
+            Result = result;
         }
     }
 }

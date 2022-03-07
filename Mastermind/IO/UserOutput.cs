@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Mastermind.IO
@@ -6,6 +5,7 @@ namespace Mastermind.IO
     class UserOutput : IUserOutput
     {
         private readonly IConsoleIO _consoleIO;
+
         private readonly string title = @"
 '##::::'##::::'###:::::'######::'########:'########:'########::'##::::'##:'####:'##::: ##:'########::
  ###::'###:::'## ##:::'##... ##:... ##..:: ##.....:: ##.... ##: ###::'###:. ##:: ###:: ##: ##.... ##:

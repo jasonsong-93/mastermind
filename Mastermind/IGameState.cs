@@ -4,8 +4,8 @@ namespace Mastermind
 {
     public interface IGameState
     {
-        int NumCodePegs { get; set; }
-        int MaxRounds { get; set; }
-        void Initialize(IUserInput userInput,  IUserOutput userOutput);
+        int NumCodePegs { get; }
+        int MaxRounds { get; }
+        void Initialize(IUserInput userInput);
     }
 }

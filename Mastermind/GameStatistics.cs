@@ -30,30 +30,30 @@ namespace Mastermind
             return _historyList != null ? _historyList.GetHashCode() : 0;
         }
 
-        // Refactor this
         public override string ToString()
         {
             var result = "";
             var count = 0;
             foreach (var attempt in _historyList)
             {
-                // For an attempt, it contains 2 lists
-                // Print out first list
                 Console.WriteLine(count);
                 Console.Write("Attempts: ");
-                for (var i = 0; i < attempt._guess.Length; ++i)
+                for (var i = 0; i < attempt.Guess.Length; ++i)
                 {
-                    Console.Write(attempt._guess[i] + ", ");
+                    Console.Write(attempt.Guess[i] + ", ");
                 }
+
                 Console.WriteLine();
                 Console.Write("Results: ");
-                foreach (var attemptResult in attempt._result)
+                foreach (var attemptResult in attempt.Result)
                 {
-                     Console.Write(attemptResult + ", ");
+                    Console.Write(attemptResult + ", ");
                 }
+
                 Console.WriteLine();
                 count++;
             }
+
             return result;
         }
     }

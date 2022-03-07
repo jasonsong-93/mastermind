@@ -6,10 +6,6 @@ namespace Mastermind
     {
         bool CodeBroken(Color[] solution);
 
-        List<Attempt> Attempts
-        {
-            get;
-            set;
-        }
+        List<Attempt> Attempts { get; }
     }
 }

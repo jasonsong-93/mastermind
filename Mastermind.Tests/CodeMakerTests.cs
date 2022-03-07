@@ -9,7 +9,7 @@ namespace Mastermind.Tests
         [Fact]
         public void GetSolutionCode_ShouldReturnAValidCodeWithCorrectSize()
         {
-            var randomizerMock = new Mock<IRandomizer>(); // setup to return specific colours
+            var randomizerMock = new Mock<IRandomizer>();
             var codeMaker = new CodeMaker(randomizerMock.Object);
             var numPegs = 4;
             randomizerMock.SetupSequence(r => r.GenerateRandomInt(Enum.GetNames(typeof(Color)).Length)).Returns(0)

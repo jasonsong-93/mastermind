@@ -25,10 +25,10 @@ namespace Mastermind
         {
             var numRounds = 0;
             _userOutput.DisplayIntroMessage();
-            _gameState.Initialize(_userInput, _userOutput);
+            _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
-            
+
             var gameFinished = false;
             var solution = _codeMaker.GetSolutionCode(maxPegs);
             while (!gameFinished && (numRounds < maxRounds))
@@ -46,12 +46,14 @@ namespace Mastermind
                         Console.WriteLine(color);
                     }
                 }
+
                 numRounds++;
                 if (numRounds == maxRounds && !gameFinished)
                 {
                     _userOutput.DisplayMaxRoundsExceeded();
                 }
             }
+
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory);
         }

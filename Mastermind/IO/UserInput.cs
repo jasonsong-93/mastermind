@@ -6,10 +6,12 @@ namespace Mastermind.IO
     {
         private readonly IConsoleIO _consoleIO;
         private const int MaxValues = 4;
+
         public UserInput(IConsoleIO consoleIO)
         {
             _consoleIO = consoleIO;
         }
+
         public Color[] PlayerGuess()
         {
             var colorArray = new Color[MaxValues];
@@ -27,6 +29,7 @@ namespace Mastermind.IO
                     }
                 }
             }
+
             return colorArray;
         }
 
@@ -49,6 +52,7 @@ namespace Mastermind.IO
                     _consoleIO.WriteLine("Error: Invalid number of pegs, please try again.");
                 }
             }
+
             return result;
         }
 
@@ -71,6 +75,7 @@ namespace Mastermind.IO
                     _consoleIO.WriteLine("Error: Invalid number of rounds, please try again.");
                 }
             }
+
             return result;
         }
     }
