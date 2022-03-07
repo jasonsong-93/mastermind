@@ -1,4 +1,3 @@
-using Mastermind.Input;
 using Moq;
 using Xunit;
 

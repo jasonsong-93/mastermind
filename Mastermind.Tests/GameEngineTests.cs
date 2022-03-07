@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Mastermind.Input;
-using Mastermind.Output;
+using Mastermind.IO;
 using Moq;
 using Xunit;
 
@@ -30,7 +29,7 @@ namespace Mastermind.Tests
             var historyList = new List<Attempt> {attempt1, attempt2};
             _gameState.Setup(g => g.MaxRounds).Returns(60);
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
-            _codeMakerMock.Setup(c => c.GenerateRandomSolutionCode(4)).Returns(_mockSolution);
+            _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
@@ -45,7 +44,7 @@ namespace Mastermind.Tests
         {
             _gameState.Setup(g => g.MaxRounds).Returns(60);
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
-            _codeMakerMock.Setup(c => c.GenerateRandomSolutionCode(4)).Returns(_mockSolution);
+            _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution)).Returns(false).Returns(false).Returns(true);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInput.Object, _userOutput.Object, _gameState.Object);
             ge.Run();

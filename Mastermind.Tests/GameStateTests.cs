@@ -1,5 +1,4 @@
-using Mastermind.Input;
-using Mastermind.Output;
+using Mastermind.IO;
 using Moq;
 using Xunit;
 
@@ -12,12 +11,12 @@ namespace Mastermind.Tests
         [Fact]
         public void Initialize_ShouldCorrectlySet()
         {
-            _userInputMock.Setup(i => i.ValidateMaxRounds()).Returns(60);
+            _userInputMock.Setup(i => i.GetValidMaxRounds()).Returns(60);
             _userInputMock.Setup(i => i.ValidateNumCodePegs()).Returns(4);
             var gameState = new GameState();
             gameState.Initialize(_userInputMock.Object, _userOutputMock.Object);
             
-            _userInputMock.Verify(i=>i.ValidateMaxRounds(), Times.Once);
+            _userInputMock.Verify(i=>i.GetValidMaxRounds(), Times.Once);
             _userInputMock.Verify(i=>i.ValidateNumCodePegs(), Times.Once);
         }
     }

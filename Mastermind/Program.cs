@@ -1,6 +1,5 @@
 ﻿using System;
-using Mastermind.Input;
-using Mastermind.Output;
+using Mastermind.IO;
 
 namespace Mastermind
 {
@@ -8,15 +7,17 @@ namespace Mastermind
     {
         private static void Main(string[] args)
         {
-            // var rand = new Randomizer();
-            // var ci = new ConsoleInput();
-            // var ui = new UserInput(ci);
-            // var maker = new CodeMaker(rand);
-            // var breaker = new CodeBreaker(ui);
-            // var ge = new GameEngine(breaker, maker);
+            
+            var io = new ConsoleIO();
+            var userInput = new UserInput(io);
+            var userOutput = new UserOutput(io);
+            var rand = new Randomizer();
+            var maker = new CodeMaker(rand);
+            var breaker = new CodeBreaker(userInput, userOutput);
             var gameState = new GameState();
-            // ge.Run();
-            Console.WriteLine("Hello World!");
+
+            var ge = new GameEngine(breaker, maker, userInput, userOutput, gameState);
+            ge.Run();
         }
     }
 }

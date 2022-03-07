@@ -33,5 +33,10 @@ namespace Mastermind
         {
             return _historyList != null ? _historyList.GetHashCode() : 0;
         }
+
+        public override string ToString()
+        {
+            return "WOW history is amazing!" + _historyList;
+        }
     }
 }

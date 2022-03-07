@@ -1,5 +1,4 @@
-using Mastermind.Input;
-using Mastermind.Output;
+using Mastermind.IO;
 
 namespace Mastermind
 {
@@ -8,11 +7,11 @@ namespace Mastermind
         public int NumCodePegs { get; set; }
 
         public int MaxRounds { get; set; }
+
         public void Initialize(IUserInput userInput, IUserOutput userOutput)
         {
-            MaxRounds = userInput.ValidateMaxRounds();
+            MaxRounds = userInput.GetValidMaxRounds();
             NumCodePegs = userInput.ValidateNumCodePegs();
         }
-
     }
 }

@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Mastermind.Input;
+using Mastermind.IO;
 
 namespace Mastermind
 {
     public class CodeBreaker : ICodeBreaker
     {
         private readonly IUserInput _userInput;
+        private readonly IUserOutput _userOutput;
         public List<Attempt> Attempts { get; set; }
 
-        public CodeBreaker(IUserInput userInput)
+        public CodeBreaker(IUserInput userInput, IUserOutput userOutput)
         {
             _userInput = userInput;
+            _userOutput = userOutput;
             Attempts = new List<Attempt>();
         }
 
         public bool CodeBroken(Color[] solution)
         {
-            // 
             var guess = _userInput.PlayerGuess();
             var result = CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);
@@ -38,20 +39,29 @@ namespace Mastermind
             var result = new List<Color>();
             for (var i = 0; i < guess.Length; ++i)
             {
-                var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
-                if (frequencyGreaterThanZero)
+                var containsKey = solutionColorFrequencyDictionary.ContainsKey(guess[i]);
+                if (!containsKey)
                 {
-                    if (solution[i] == guess[i])
+                    result.Add(default);
+                }
+                else
+                {
+                    var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
+                    if (frequencyGreaterThanZero)
                     {
-                        result.Add(Color.Black);
-                        DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
-                    }
-                    else
-                    {
-                        result.Add(Color.White);
-                        DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                        if (solution[i] == guess[i])
+                        {
+                            result.Add(Color.Black);
+                            DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                        }
+                        else
+                        {
+                            result.Add(Color.White);
+                            DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                        }
                     }
                 }
+            
             }
             return result;
         }
