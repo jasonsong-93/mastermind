@@ -40,7 +40,7 @@ namespace Mastermind
                 }
                 else
                 {
-                    Console.WriteLine("***SOLUTION***: ");
+                    Console.WriteLine("***SOLUTION - REMOVE THIS ***: ");
                     foreach (var color in solution)
                     {
                         Console.WriteLine(color);

@@ -30,6 +30,7 @@ namespace Mastermind
             return _historyList != null ? _historyList.GetHashCode() : 0;
         }
 
+        // Refactor this
         public override string ToString()
         {
             var result = "";
