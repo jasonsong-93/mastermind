@@ -32,11 +32,6 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("***Congratulations on cracking the code! Here are your results***");
         }
 
-        public void DisplayIncorrect()
-        {
-            _consoleIO.WriteLine("Please try again");
-        }
-
         public void DisplayResult(List<ResultColor> result)
         {
             foreach (var color in result)

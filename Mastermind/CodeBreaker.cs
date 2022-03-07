@@ -61,7 +61,6 @@ namespace Mastermind
                     }
                 }
             }
-
             return result;
         }
 
