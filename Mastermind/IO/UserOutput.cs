@@ -19,7 +19,7 @@ namespace Mastermind.IO
 
         public void DisplayFinished()
         {
-            _consoleIO.WriteLine("AMAZING JOB");
+            _consoleIO.WriteLine("***Congratulations on cracking the code! Here are your results***");
 
         }
 
@@ -35,6 +35,11 @@ namespace Mastermind.IO
             {
                 _consoleIO.Write(color + " ");
             }
+        }
+
+        public void DisplayMaxRoundsExceeded()
+        {
+            _consoleIO.WriteLine("You've reached the maximum allocated rounds, ending game.");
         }
     }
 }

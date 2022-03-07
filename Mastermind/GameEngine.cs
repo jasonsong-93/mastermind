@@ -47,6 +47,10 @@ namespace Mastermind
                     }
                 }
                 numRounds++;
+                if (numRounds == maxRounds && !gameFinished)
+                {
+                    _userOutput.DisplayMaxRoundsExceeded();
+                }
             }
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory);
