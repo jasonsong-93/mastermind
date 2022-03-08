@@ -27,6 +27,8 @@ namespace Mastermind
             _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
+            _userOutput.DisplayGameState(maxRounds, maxPegs);
+            _userOutput.Countdown();
 
             var gameFinished = false;
             var numRounds = 0;
@@ -34,6 +36,8 @@ namespace Mastermind
             var solution = _codeMaker.GetSolutionCode(maxPegs);
             while (!gameFinished && (numRounds < maxRounds))
             {
+                _userOutput.ClearOutput();
+                _userOutput.DisplayCurrentRound(numRounds + 1, maxRounds);
                 gameFinished = _codeBreaker.CodeBroken(solution);
                 if (gameFinished)
                 {

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace Mastermind.IO
 {
@@ -45,15 +46,15 @@ namespace Mastermind.IO
             {
                 _userOutput.PromptUserForMaxRounds();
                 var input = _consoleIO.ReadLine();
-                if (Int32.TryParse(input, out var numRounds))
+                if (!int.TryParse(input, out var numRounds) || !(numRounds > 0))
+                {
+                    _consoleIO.WriteLine("Error: Invalid number of rounds, please enter a number greater than 0");
+                }
+                else
                 {
                     valid = true;
                     result = numRounds;
                     _consoleIO.WriteLine("");
-                }
-                else
-                {
-                    _consoleIO.WriteLine("Error: Invalid number of rounds, please try again.");
                 }
             }
             return result;
@@ -65,19 +66,19 @@ namespace Mastermind.IO
             var valid = false;
             while (!valid)
             {
-                _consoleIO.WriteLine("Would you like to play with 4 or 6 pegs? (pegs are the total number of colours you need to guess)");
-                var readInt = int.Parse(_consoleIO.ReadLine());
-                if (readInt == 4 || readInt == 6)
+                _userOutput.PromptUserForNumPegs();
+                var input = _consoleIO.ReadLine();
+                if (!int.TryParse(input, out var numPegs) || numPegs is not (4 or 6))
                 {
-                    valid = true;
-                    result = readInt;
-                    _consoleIO.WriteLine("Starting the game with " + readInt + " pegs.");
+                    
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        _consoleIO.WriteLine("Error: Invalid number of pegs, please try again.");
+                        Console.ResetColor();
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    _consoleIO.WriteLine("Error: Invalid number of pegs, please try again.");
-                    Console.ResetColor();
+                        valid = true;
+                        result = numPegs;
                 }
             }
             return result;

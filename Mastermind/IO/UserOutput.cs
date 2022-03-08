@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 
 namespace Mastermind.IO
 {
@@ -32,7 +34,13 @@ namespace Mastermind.IO
             DisplayValidColours();
         }
 
-
+        public void DisplayCodeBreaker()
+        {
+            DisplayTitle();
+            MakeBold("Code breaker\n");
+            PrintLineBreak();
+            DisplayValidColours();
+        }
 
         public void DisplayFinished()
         {
@@ -52,21 +60,87 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("You've reached the maximum allocated rounds, ending game.");
         }
 
-        public void DisplayAttempts(List<Attempt> attempts)
+
+        public void DisplayBoard(List<Attempt> attempts)
         {
-            foreach (var t in attempts)
+            DisplayAttempts(attempts);
+            PrintLineBreak();
+        }
+
+        private void DisplayAttempts(List<Attempt> attempts)
+        {
+            PrintLineBreak();
+            _consoleIO.WriteLine("Previous attempts");
+
+            for (var i = 0; i < attempts.Count; ++i)
             {
-                foreach (var color in t.Guess)
-                {
-                    _consoleIO.Write(color + " ");
-                }
+                _consoleIO.Write("Attempt #" + (i + 1));
+                _consoleIO.Write("Guess: ");
+                DisplayCirclesToConsole(attempts[i].Guess);
+                _consoleIO.WriteLine("");
+                _consoleIO.Write("Hint: ");
+                DisplayCirclesToConsole(attempts[i].Result);
+                _consoleIO.WriteLine("");
             }
             _consoleIO.WriteLine("");
         }
-
-        public void DisplayCodeBreaker()
+        
+        private void DisplayCirclesToConsole(List<ResultColor> colorsToPrint)
         {
-            _consoleIO.Write(title);
+            var sb = new StringBuilder();
+
+            for (var i = 0; i < colorsToPrint.Count; ++i)
+            {
+                switch (colorsToPrint[i])
+                {
+                    case ResultColor.Black:
+                        sb.Append("⚫(Black)");
+                        break;
+                    case ResultColor.White:
+                        sb.Append("⚪(White)");
+                        break;
+                }
+                if (i != colorsToPrint.Count - 1)
+                {
+                    sb.Append(", ");
+                }
+            }
+            _consoleIO.Write(sb.ToString());
+        }
+
+        private void DisplayCirclesToConsole(Color[] colorsToPrint)
+        {
+            var sb = new StringBuilder();
+
+            for (var i = 0; i < colorsToPrint.Length; ++i)
+            {
+                switch (colorsToPrint[i])
+                {
+                    case Color.Red:
+                        sb.Append("🔴(Red)");
+                        break;
+                    case Color.Blue:
+                        sb.Append("🔵(Blue)");
+                        break;
+                    case Color.Green:
+                        sb.Append("🟢(Green)");
+                        break;
+                    case Color.Orange:
+                        sb.Append("🟠(Orange)");
+                        break;
+                    case Color.Purple:
+                        sb.Append("🟣(Purple)");
+                        break;
+                    case Color.Yellow:
+                        sb.Append("🟡(Yellow)");
+                        break;
+                }
+                if (i != colorsToPrint.Length - 1)
+                {
+                    sb.Append(", ");
+                }
+            }
+            _consoleIO.Write(sb.ToString());
         }
 
         public void PromptUserForColor()
@@ -78,37 +152,109 @@ namespace Mastermind.IO
         {
             _consoleIO.WriteLine("Please enter the number of rounds you would like to play (Recommended: 8 - 12)");
         }
+
+        public void Countdown()
+        {
+            var delay = 1000;
+            var increment = 100;
+            _consoleIO.WriteLine("Game starting in ");
+            for (var i = 5; i > 0; --i)
+            {
+                _consoleIO.Write(i + "... ");
+                Thread.Sleep(delay);
+                delay += increment;
+            }
+
+            _consoleIO.Clear();
+        }
+
+        public void ClearOutput()
+        {
+            _consoleIO.Clear();
+        }
+
+        public void DisplayGameState(int maxRounds, int maxPegs)
+        {
+            SuccessDisplay("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +
+                           maxPegs + " number of pegs.");
+            _consoleIO.WriteLine("");
+        }
+
+        public void PromptUserForNumPegs()
+        {
+            _consoleIO.WriteLine(
+                "Would you like to play with 4 or 6 pegs? (pegs are the total number of colours you need to guess)");
+        }
+
+        public void DisplayCurrentRound(int numRounds, int maxRounds)
+        {
+            MakeBold("Round: ");
+            SuccessDisplay(numRounds.ToString());
+            _consoleIO.Write(" out of ");
+            ErrorDisplay(maxRounds.ToString());
+            _consoleIO.WriteLine("");
+        }
+
         private void DisplayTitle()
         {
             _consoleIO.WriteLine(title);
         }
+
         private void DisplayRules()
         {
-            _consoleIO.WriteLine("RULES ✔");
-            _consoleIO.WriteLine("----------");
-            _consoleIO.WriteLine("Welcome to Mastermind! you need to guess the correct position and colour of the randomized board.");
-            _consoleIO.WriteLine("");
+            MakeBold("RULES ✔");
+            PrintLineBreak();
+            _consoleIO.WriteLine(
+                "Welcome to Mastermind! you need to guess the correct position and colour of the randomized board.\n");
             _consoleIO.Write("Hints will be given at the end of each round as a ");
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            _consoleIO.Write("\x1b[1mrandomized\x1b[0m");
-            Console.ResetColor();
+            ErrorDisplay("randomized");
             _consoleIO.WriteLine(" list of colours.");
             _consoleIO.WriteLine("- ⚫(Black) means a correct colour and position");
-            _consoleIO.WriteLine("- ⚪(White) means a correct colour, but incorrect position");
-            _consoleIO.WriteLine("If your colour doesn't exist, no value will be added to the list of hints.");
-            _consoleIO.WriteLine("");
-
+            _consoleIO.WriteLine("- ⚪(White) means a correct colour but incorrect position\n");
+            MakeItalicized("*Note: If your colour doesn't exist, no value will be added to the list of hints.");
+            _consoleIO.WriteLine("\n");
         }
-        
+
+        private void MakeItalicized(string s)
+        {
+            _consoleIO.Write("\x1b[3m" + s + "\x1b[0m");
+        }
+
+        private void MakeBold(string s)
+        {
+            _consoleIO.Write("\x1b[1m" + s + "\x1b[0m");
+        }
+
+        private void ErrorDisplay(string s)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(s);
+            Console.ResetColor();
+        }
+
+        private void SuccessDisplay(string s)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(s);
+            Console.ResetColor();
+        }
+
         private void DisplayValidColours()
         {
-            _consoleIO.WriteLine("Valid colours/guesses are:");
+            MakeBold("Valid colours/guesses are:\n");
             _consoleIO.WriteLine("🔴(Red)");
             _consoleIO.WriteLine("🔵(Blue)");
             _consoleIO.WriteLine("🟢(Green)");
             _consoleIO.WriteLine("🟠(Orange)");
             _consoleIO.WriteLine("🟣(Purple)");
             _consoleIO.WriteLine("🟡(Yellow)");
+            _consoleIO.WriteLine("");
+        }
+
+        private void PrintLineBreak()
+        {
+            _consoleIO.WriteLine("");
+            _consoleIO.WriteLine("----------");
             _consoleIO.WriteLine("");
         }
     }

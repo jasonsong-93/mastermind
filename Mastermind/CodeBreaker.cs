@@ -21,7 +21,7 @@ namespace Mastermind
         public bool CodeBroken(Color[] solution)
         {
             _userOutput.DisplayCodeBreaker();
-            _userOutput.DisplayAttempts(Attempts);
+            _userOutput.DisplayBoard(Attempts);
             var guess = _userInput.PlayerGuess();
             var result = CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);
@@ -30,10 +30,11 @@ namespace Mastermind
             {
                 Console.WriteLine("Your sequence isn't matching, here's the clues");
                 _userOutput.DisplayResult(result);
-                Console.WriteLine();
+                Console.WriteLine("Press any key to continue..");
+                Console.ReadKey();
+                Console.Clear();
                 return false;
             }
-
             return true;
         }
 
