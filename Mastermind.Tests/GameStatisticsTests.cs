@@ -6,25 +6,20 @@ namespace Mastermind.Tests
 {
     public class GameStatisticsTests
     {
+        private static readonly Color[] FirstGuess = {Color.Red, Color.Yellow, Color.Blue, Color.Green};
+        private static readonly List<ResultColor> FirstResult = new() {ResultColor.White, ResultColor.White, ResultColor.White, ResultColor.Black};
+        private static readonly Attempt Attempt1 = new(FirstGuess, FirstResult);
+        private static readonly Color[] FinalGuess = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
+        private static readonly List<ResultColor> FinalResult = new() {ResultColor.Black, ResultColor.Black, ResultColor.Black, ResultColor.Black};
+        private static readonly Attempt Attempt2 = new(FinalGuess, FinalResult);
+        private readonly List<Attempt> _historyList1 = new() {Attempt1, Attempt2};
 
         [Fact]
         public void ToString_ShouldCreateCorrectString()
         {
-            var firstGuess = new[] {Color.Red, Color.Yellow, Color.Blue, Color.Green};
-            var firstResult = new List<ResultColor>
-                {ResultColor.White, ResultColor.White, ResultColor.White, ResultColor.Black};
-            var finalGuess = new[] {Color.Red, Color.Blue, Color.Green, Color.Yellow};
-            var finalResult = new List<ResultColor>
-                {ResultColor.Black, ResultColor.Black, ResultColor.Black, ResultColor.Black};
-
-            var attempt1 = new Attempt(firstGuess, firstResult);
-            var attempt2 = new Attempt(finalGuess, finalResult);
-
-            var historyList = new List<Attempt> {attempt1, attempt2};
-
-            var gameStats = new GameStatistics(historyList);
+            var gameStats = new GameStatistics(_historyList1);
             var s = gameStats.ToString();
             Assert.Equal("hello", s);
-        }
+        }  
     }
 }

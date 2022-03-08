@@ -7,7 +7,7 @@ namespace Mastermind
     {
         protected bool Equals(GameStatistics other)
         {
-            return Equals(_historyList, other._historyList);
+            return Equals(HistoryList, other.HistoryList);
         }
 
         public override bool Equals(object obj)
@@ -20,21 +20,21 @@ namespace Mastermind
 
         public override int GetHashCode()
         {
-            return (_historyList != null ? _historyList.GetHashCode() : 0);
+            return (HistoryList != null ? HistoryList.GetHashCode() : 0);
         }
 
-        private readonly List<Attempt> _historyList;
+        public List<Attempt> HistoryList { get; }
 
         public GameStatistics(List<Attempt> historyList)
         {
-            _historyList = historyList;
+            HistoryList = historyList;
         }
         
         public override string ToString()
         {
             var result = "";
             var count = 0;
-            foreach (var attempt in _historyList)
+            foreach (var attempt in HistoryList)
             {
                 Console.WriteLine(count);
                 Console.Write("Attempts: ");
@@ -56,5 +56,6 @@ namespace Mastermind
 
             return result;
         }
+
     }
 }

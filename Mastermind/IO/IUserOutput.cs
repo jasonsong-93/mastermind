@@ -8,5 +8,6 @@ namespace Mastermind.IO
         void DisplayFinished();
         void DisplayResult(List<ResultColor> result);
         void DisplayMaxRoundsExceeded();
+        void DisplayAttempts(List<Attempt> attempts);
     }
 }

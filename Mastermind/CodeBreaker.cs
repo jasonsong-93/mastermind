@@ -20,6 +20,7 @@ namespace Mastermind
 
         public bool CodeBroken(Color[] solution)
         {
+            _userOutput.DisplayAttempts(Attempts);
             var guess = _userInput.PlayerGuess();
             var result = CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);

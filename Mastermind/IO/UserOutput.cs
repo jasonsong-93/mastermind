@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Mastermind.IO
 {
-    class UserOutput : IUserOutput
+    public class UserOutput : IUserOutput
     {
         private readonly IConsoleIO _consoleIO;
 
@@ -43,6 +43,20 @@ namespace Mastermind.IO
         public void DisplayMaxRoundsExceeded()
         {
             _consoleIO.WriteLine("You've reached the maximum allocated rounds, ending game.");
+        }
+
+        public void DisplayAttempts(List<Attempt> attempts)
+        {
+            _consoleIO.Clear();
+            _consoleIO.WriteLine("***PRINTING OUT DISPLAYATTEMPTS METHOD***");
+            foreach (var t in attempts)
+            {
+                foreach (var color in t.Guess)
+                {
+                    _consoleIO.Write(color + " ");
+                }
+            }
+            _consoleIO.WriteLine("");
         }
     }
 }
