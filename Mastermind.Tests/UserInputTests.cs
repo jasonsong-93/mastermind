@@ -7,6 +7,9 @@ namespace Mastermind.Tests
 {
     public class UserInputTests
     {
+        private readonly Mock<IConsoleIO> _mockConsole = new ();
+        private readonly Mock<IUserOutput> _userOutputMock = new();
+
         [Theory]
         [InlineData("Green", "Red", "Yellow", "Yellow", new [] {
             Color.Green, Color.Red, Color.Yellow, Color.Yellow
@@ -23,10 +26,9 @@ namespace Mastermind.Tests
         public void PlayerGuess_ShouldReturnThePlayerInputGuess(string first, string second, string third, string fourth, Color[] expected)
         {
             // arrange
-            Mock<IConsoleIO> mockConsole = new ();
-            mockConsole.SetupSequence(c => c.ReadLine()).Returns(first).Returns(second).Returns(third).Returns(fourth);
+            _mockConsole.SetupSequence(c => c.ReadLine()).Returns(first).Returns(second).Returns(third).Returns(fourth);
             // act
-            var ui = new UserInput(mockConsole.Object);
+            var ui = new UserInput(_mockConsole.Object, _userOutputMock.Object);
             var result = ui.PlayerGuess();
             // assert
             Assert.Equal(expected, result);
@@ -39,7 +41,7 @@ namespace Mastermind.Tests
         {
             Mock<IConsoleIO> mockConsole = new();
             mockConsole.Setup(c => c.ReadLine()).Returns(input);
-            var ui = new UserInput(mockConsole.Object);
+            var ui = new UserInput(mockConsole.Object, _userOutputMock.Object);
             var result = ui.ValidateNumCodePegs();
             Assert.Equal(expected, result);
         }
@@ -52,7 +54,7 @@ namespace Mastermind.Tests
         {
             Mock<IConsoleIO> mockConsole = new();
             mockConsole.Setup(c => c.ReadLine()).Returns(input);
-            var ui = new UserInput(mockConsole.Object);
+            var ui = new UserInput(mockConsole.Object, _userOutputMock.Object);
             var result = ui.GetValidMaxRounds();
             Assert.Equal(expected, result);
         }
