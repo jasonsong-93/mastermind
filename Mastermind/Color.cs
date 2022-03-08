@@ -1,3 +1,5 @@
+using System;
+
 namespace Mastermind
 {
     public enum Color

@@ -3,8 +3,8 @@ using Mastermind;
 using Mastermind.IO;
 
 var io = new ConsoleIO();
-var userInput = new UserInput(io);
 var userOutput = new UserOutput(io);
+var userInput = new UserInput(io, userOutput);
 var rand = new Random();
 var randomizer = new Randomizer(rand);
 var maker = new CodeMaker(randomizer);

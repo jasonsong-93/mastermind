@@ -23,13 +23,14 @@ namespace Mastermind
 
         public GameStatistics Run()
         {
-            var numRounds = 0;
-            _userOutput.DisplayIntroMessage();
+            _userOutput.DisplayMenu();
             _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
 
             var gameFinished = false;
+            var numRounds = 0;
+
             var solution = _codeMaker.GetSolutionCode(maxPegs);
             while (!gameFinished && (numRounds < maxRounds))
             {
@@ -40,7 +41,6 @@ namespace Mastermind
                 }
                 else
                 {
-                    Console.WriteLine("***SOLUTION - REMOVE THIS ***: ");
                     foreach (var color in solution)
                     {
                         Console.WriteLine(color);
