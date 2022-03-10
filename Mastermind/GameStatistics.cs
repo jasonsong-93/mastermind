@@ -1,10 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Mastermind.IO;
 
 namespace Mastermind
 {
     public class GameStatistics
     {
+        private readonly IUserOutput _userOutput;
+        public List<Attempt> HistoryList { get; }
+
+        public GameStatistics(List<Attempt> historyList, IUserOutput userOutput)
+        {
+            _userOutput = userOutput;
+            HistoryList = historyList;
+        }
         protected bool Equals(GameStatistics other)
         {
             return Equals(HistoryList, other.HistoryList);
@@ -23,38 +32,11 @@ namespace Mastermind
             return (HistoryList != null ? HistoryList.GetHashCode() : 0);
         }
 
-        public List<Attempt> HistoryList { get; }
 
-        public GameStatistics(List<Attempt> historyList)
+
+        public void PrintToConsole()
         {
-            HistoryList = historyList;
-        }
-        
-        public override string ToString()
-        {
-            var result = "";
-            var count = 0;
-            foreach (var attempt in HistoryList)
-            {
-                Console.WriteLine(count);
-                Console.Write("Attempts: ");
-                for (var i = 0; i < attempt.Guess.Length; ++i)
-                {
-                    Console.Write(attempt.Guess[i] + ", ");
-                }
-
-                Console.WriteLine();
-                Console.Write("Results: ");
-                foreach (var attemptResult in attempt.Result)
-                {
-                    Console.Write(attemptResult + ", ");
-                }
-
-                Console.WriteLine();
-                count++;
-            }
-
-            return result;
+            _userOutput.DisplayStatistics(HistoryList);
         }
 
     }

@@ -33,6 +33,12 @@ namespace Mastermind.IO
             DisplayValidColours();
         }
 
+        public void DisplaySolution(Color[] solution)
+        {
+            _consoleIO.WriteLine("The solution was: ");
+            DisplayCirclesToConsole(solution);
+        }
+
         public void DisplayCodeBreaker()
         {
             DisplayTitle();
@@ -41,9 +47,11 @@ namespace Mastermind.IO
             DisplayValidColours();
         }
 
-        public void DisplayFinished()
+        public void DisplayWin()
         {
-            DisplaySuccess("***Congratulations on cracking the code! Here are your results***");
+            DisplaySuccess("***Congratulations on cracking the code!");
+            _consoleIO.ReadKey();
+            _consoleIO.WriteLine("\nPress any key to continue ...");
         }
 
         public void DisplayNotMatchingResult(List<ResultColor> result)
@@ -69,7 +77,11 @@ namespace Mastermind.IO
 
         public void DisplayMaxRoundsExceeded()
         {
-            _consoleIO.WriteLine("You've reached the maximum allocated rounds, ending game.");
+            DisplayTitle();
+            DisplayError("You've reached the maximum allocated rounds, ending game.");
+            _consoleIO.WriteLine("\nBetter luck next time ...");
+            _consoleIO.ReadKey();
+            _consoleIO.WriteLine("\nPress any key to continue ...");
         }
 
 
@@ -235,6 +247,33 @@ namespace Mastermind.IO
         {
             DisplayError("Please enter a valid color or number.\n\n");
         }
+
+        public void DisplayStatistics(List<Attempt> historyOfAttempts)
+        {
+            var count = 0;
+            _consoleIO.Clear();
+            DisplayTitle();
+            MakeBold("RESULTS AND STATISTICS");
+            _consoleIO.WriteLine("GG, here's your list of attempts");
+            
+            foreach (var attempt in historyOfAttempts)
+            {
+                _consoleIO.Write("Attempt #" + count + ": ");
+                _consoleIO.Write("Guess: " );
+                foreach (var color in attempt.Guess)
+                {
+                    _consoleIO.Write(ConvertToEmoji(color) + " ");
+                }
+                _consoleIO.Write("Hint: " );
+                foreach (var resultColor in attempt.Result)
+                {
+                    _consoleIO.Write(ConvertToEmoji(resultColor) + " ");
+                }
+                _consoleIO.WriteLine("");
+                count++;
+            }
+        }
+
         public void DisplayGameState(int maxRounds, int maxPegs)
         {
             DisplaySuccess("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +

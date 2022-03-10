@@ -13,4 +13,4 @@ var gameState = new GameState();
 
 var ge = new GameEngine(breaker, maker, userInput, userOutput, gameState);
 var stats = ge.Run();
-io.Write(stats.ToString());
+stats.PrintToConsole();

@@ -5,7 +5,8 @@ namespace Mastermind.IO
     public interface IUserOutput
     {
         void DisplayMenu();
-        void DisplayFinished();
+        void DisplaySolution(Color[] solution);
+        void DisplayWin();
         void DisplayNotMatchingResult(List<ResultColor> result);
         void DisplayMaxRoundsExceeded();
         void DisplayCodeBreaker();
@@ -21,5 +22,6 @@ namespace Mastermind.IO
         void DisplayInvalidNumPegs();
         void DisplayValidColorFromUser(Color color);
         void DisplayInvalidColorFromUser();
+        void DisplayStatistics(List<Attempt> historyOfAttempts);
     }
 }

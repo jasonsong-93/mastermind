@@ -9,6 +9,8 @@ namespace Mastermind.Tests
     {
         private readonly Mock<IConsoleIO> _mockConsole = new ();
         private readonly Mock<IUserOutput> _userOutputMock = new();
+        private readonly int _numPegs = 4;
+
 
         [Theory]
         [InlineData("Green", "Red", "Yellow", "Yellow", new [] {
@@ -29,7 +31,7 @@ namespace Mastermind.Tests
             _mockConsole.SetupSequence(c => c.ReadLine()).Returns(first).Returns(second).Returns(third).Returns(fourth);
             // act
             var ui = new UserInput(_mockConsole.Object, _userOutputMock.Object);
-            var result = ui.PlayerGuess();
+            var result = ui.PlayerGuess(_numPegs);
             // assert
             Assert.Equal(expected, result);
         }

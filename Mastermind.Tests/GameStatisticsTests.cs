@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mastermind.IO;
 using Moq;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace Mastermind.Tests
         [Fact]
         public void ToString_ShouldCreateCorrectString()
         {
-            var gameStats = new GameStatistics(_historyList1);
+            var gameStats = new GameStatistics(_historyList1, new Mock<IUserOutput>().Object);
             var s = gameStats.ToString();
             Assert.Equal("hello", s);
         }  
