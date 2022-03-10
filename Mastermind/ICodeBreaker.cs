@@ -4,7 +4,7 @@ namespace Mastermind
 {
     public interface ICodeBreaker
     {
-        bool CodeBroken(Color[] solution);
+        bool CodeBroken(Color[] solution, int numPegs);
 
         List<Attempt> Attempts { get; }
     }

@@ -46,12 +46,25 @@ namespace Mastermind.IO
             DisplaySuccess("***Congratulations on cracking the code! Here are your results***");
         }
 
-        public void DisplayResult(List<ResultColor> result)
+        public void DisplayNotMatchingResult(List<ResultColor> result)
         {
-            foreach (var color in result)
+            _consoleIO.WriteLine("");
+            if (result.Count == 0)
             {
-                _consoleIO.Write(color + " ");
+                DisplayError("No matches found");
             }
+            else
+            {
+                DisplayError("Your sequence doesn't quite match. Here's your hint\n");
+                foreach (var resultColor in result)
+                {
+                    _consoleIO.Write(ConvertToEmoji(resultColor) + " ");
+                }
+                
+            }
+            _consoleIO.WriteLine("\nPress any key to continue ...");
+            _consoleIO.ReadKey();
+            _consoleIO.Clear();
         }
 
         public void DisplayMaxRoundsExceeded()
@@ -62,13 +75,13 @@ namespace Mastermind.IO
 
         public void DisplayBoard(List<Attempt> attempts)
         {
+            _consoleIO.WriteLine("Board");
             DisplayAttempts(attempts);
+            _consoleIO.WriteLine("");
         }
 
         private void DisplayAttempts(List<Attempt> attempts)
         {
-            PrintLineBreak();
-            _consoleIO.WriteLine("Board");
             for (var i = 0; i < attempts.Count; ++i)
             {
                 _consoleIO.Write("Attempt #" + (i + 1));
@@ -79,7 +92,6 @@ namespace Mastermind.IO
                 DisplayCirclesToConsole(attempts[i].Result);
                 _consoleIO.WriteLine("");
             }
-            _consoleIO.WriteLine("");
         }
         
         private void DisplayCirclesToConsole(List<ResultColor> colorsToPrint)
@@ -91,10 +103,10 @@ namespace Mastermind.IO
                 switch (colorsToPrint[i])
                 {
                     case ResultColor.Black:
-                        sb.Append("⚫(Black)");
+                        sb.Append("⚫(B)");
                         break;
                     case ResultColor.White:
-                        sb.Append("⚪(White)");
+                        sb.Append("⚪(W)");
                         break;
                 }
                 if (i != colorsToPrint.Count - 1)
@@ -114,22 +126,22 @@ namespace Mastermind.IO
                 switch (colorsToPrint[i])
                 {
                     case Color.Red:
-                        sb.Append("🔴(Red)");
+                        sb.Append("🔴(R)");
                         break;
                     case Color.Blue:
-                        sb.Append("🔵(Blue)");
+                        sb.Append("🔵(B)");
                         break;
                     case Color.Green:
-                        sb.Append("🟢(Green)");
+                        sb.Append("🟢(G)");
                         break;
                     case Color.Orange:
-                        sb.Append("🟠(Orange)");
+                        sb.Append("🟠(O)");
                         break;
                     case Color.Purple:
-                        sb.Append("🟣(Purple)");
+                        sb.Append("🟣(P)");
                         break;
                     case Color.Yellow:
-                        sb.Append("🟡(Yellow)");
+                        sb.Append("🟡(Y)");
                         break;
                 }
                 if (i != colorsToPrint.Length - 1)
@@ -140,9 +152,42 @@ namespace Mastermind.IO
             _consoleIO.Write(sb.ToString());
         }
 
+        private static string ConvertToEmoji(Color color)
+        {
+            switch (color)
+            {
+                case Color.Red:
+                    return "🔴(R)";
+                case Color.Blue:
+                    return "🔵(B)";
+                case Color.Green:
+                    return "🟢(G)";
+                case Color.Orange:
+                    return "🟠(O)";
+                case Color.Purple:
+                    return "🟣(P)";
+                case Color.Yellow:
+                    return "🟡(Y)";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
+            }
+        }
+        private static string ConvertToEmoji(ResultColor color)
+        {
+            switch (color)
+            {
+                case ResultColor.Black:
+                    return "⚫(B)";
+                case ResultColor.White:
+                    return "⚪(W)";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
+            }
+        }
+      
         public void PromptUserForColor()
         {
-            _consoleIO.WriteLine("Please enter a valid color: ");
+            _consoleIO.WriteLine("Please enter a valid color [you can type the number or the colour]: ");
         }
 
         public void PromptUserForMaxRounds()
@@ -182,6 +227,14 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("\n");
         }
 
+        public void DisplayValidColorFromUser(Color color)
+        {
+            _consoleIO.WriteLine(ConvertToEmoji(color) + " accepted!");
+        }
+        public void DisplayInvalidColorFromUser()
+        {
+            DisplayError("Please enter a valid color or number.\n\n");
+        }
         public void DisplayGameState(int maxRounds, int maxPegs)
         {
             DisplaySuccess("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +
@@ -224,11 +277,6 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("\n");
         }
 
-        private void MakeBordered(string s)
-        {
-            
-        }
-
         private string MakeItalicized(string s)
         {
             return "\x1b[3m" + s + "\x1b[0m";
@@ -256,12 +304,12 @@ namespace Mastermind.IO
         private void DisplayValidColours()
         {
             MakeBold("Valid colours/guesses are:\n");
-            _consoleIO.WriteLine("🔴(Red)");
-            _consoleIO.WriteLine("🔵(Blue)");
-            _consoleIO.WriteLine("🟢(Green)");
-            _consoleIO.WriteLine("🟠(Orange)");
-            _consoleIO.WriteLine("🟣(Purple)");
-            _consoleIO.WriteLine("🟡(Yellow)");
+            _consoleIO.WriteLine("🔴(1: Red)");
+            _consoleIO.WriteLine("🔵(2: Blue)");
+            _consoleIO.WriteLine("🟢(3: Green)");
+            _consoleIO.WriteLine("🟠(4: Orange)");
+            _consoleIO.WriteLine("🟣(5: Purple)");
+            _consoleIO.WriteLine("🟡(6: Yellow)");
             _consoleIO.WriteLine("");
         }
 

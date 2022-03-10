@@ -18,21 +18,17 @@ namespace Mastermind
             Attempts = new List<Attempt>();
         }
 
-        public bool CodeBroken(Color[] solution)
+        public bool CodeBroken(Color[] solution, int numPegs)
         {
             _userOutput.DisplayCodeBreaker();
             _userOutput.DisplayBoard(Attempts);
-            var guess = _userInput.PlayerGuess();
+            var guess = _userInput.PlayerGuess(numPegs);
             var result = CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);
             Attempts.Add(attempt);
             if (!solution.SequenceEqual(guess))
             {
-                Console.WriteLine("Your sequence isn't matching, here's the clues");
-                _userOutput.DisplayResult(result);
-                Console.WriteLine("Press any key to continue..");
-                Console.ReadKey();
-                Console.Clear();
+                _userOutput.DisplayNotMatchingResult(result);
                 return false;
             }
             return true;

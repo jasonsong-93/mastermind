@@ -23,5 +23,10 @@ namespace Mastermind.IO
         {
             Console.Clear();
         }
+
+        public void ReadKey()
+        {
+            Console.ReadKey();
+        }
     }
 }

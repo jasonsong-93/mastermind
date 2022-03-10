@@ -6,5 +6,6 @@ namespace Mastermind.IO
         void Write(string s);
         string ReadLine();
         void Clear();
+        void ReadKey();
     }
 }

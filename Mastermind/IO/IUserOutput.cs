@@ -6,7 +6,7 @@ namespace Mastermind.IO
     {
         void DisplayMenu();
         void DisplayFinished();
-        void DisplayResult(List<ResultColor> result);
+        void DisplayNotMatchingResult(List<ResultColor> result);
         void DisplayMaxRoundsExceeded();
         void DisplayCodeBreaker();
         void DisplayBoard(List<Attempt> attempts);
@@ -19,5 +19,7 @@ namespace Mastermind.IO
         void ClearOutput();
         void DisplayInvalidRounds();
         void DisplayInvalidNumPegs();
+        void DisplayValidColorFromUser(Color color);
+        void DisplayInvalidColorFromUser();
     }
 }

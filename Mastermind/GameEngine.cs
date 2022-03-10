@@ -39,7 +39,7 @@ namespace Mastermind
             {
                 _userOutput.ClearOutput();
                 _userOutput.DisplayCurrentRound(numRounds + 1, maxRounds);
-                gameFinished = _codeBreaker.CodeBroken(solution);
+                gameFinished = _codeBreaker.CodeBroken(solution, maxPegs);
                 if (gameFinished)
                 {
                     _userOutput.DisplayFinished();

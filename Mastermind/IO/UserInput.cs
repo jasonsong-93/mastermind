@@ -7,7 +7,6 @@ namespace Mastermind.IO
     {
         private readonly IConsoleIO _consoleIO;
         private readonly IUserOutput _userOutput;
-        private const int MaxValues = 4;
 
         public UserInput(IConsoleIO consoleIO, IUserOutput userOutput)
         {
@@ -36,7 +35,6 @@ namespace Mastermind.IO
 
             return result;
         }
-
         public int ValidateNumCodePegs()
         {
             var result = 0;
@@ -59,20 +57,26 @@ namespace Mastermind.IO
             return result;
         }
 
-        public Color[] PlayerGuess()
+        public Color[] PlayerGuess(int numPegs)
         {
-            var colorArray = new Color[MaxValues];
-            for (var i = 0; i < MaxValues; ++i)
+            
+            var colorArray = new Color[numPegs];
+            for (var i = 0; i < numPegs; ++i)
             {
                 var successfullyAddedColor = false;
                 while (!successfullyAddedColor)
                 {
                     _userOutput.PromptUserForColor();
                     var validInput = Enum.TryParse(_consoleIO.ReadLine(), out Color color);
-                    if (validInput)
+                    if (validInput && Enum.IsDefined(typeof(Color), color))
                     {
+                        _userOutput.DisplayValidColorFromUser(color);
                         colorArray[i] = color;
                         successfullyAddedColor = true;
+                    }
+                    else
+                    {
+                        _userOutput.DisplayInvalidColorFromUser();
                     }
                 }
             }
