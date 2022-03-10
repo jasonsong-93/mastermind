@@ -20,7 +20,6 @@ namespace Mastermind.IO
                                                                                     
 
 ";
-
         public UserOutput(IConsoleIO consoleIO)
         {
             _consoleIO = consoleIO;
@@ -38,13 +37,13 @@ namespace Mastermind.IO
         {
             DisplayTitle();
             MakeBold("Code breaker\n");
-            PrintLineBreak();
+            _consoleIO.WriteLine("*********");
             DisplayValidColours();
         }
 
         public void DisplayFinished()
         {
-            _consoleIO.WriteLine("***Congratulations on cracking the code! Here are your results***");
+            DisplaySuccess("***Congratulations on cracking the code! Here are your results***");
         }
 
         public void DisplayResult(List<ResultColor> result)
@@ -64,20 +63,18 @@ namespace Mastermind.IO
         public void DisplayBoard(List<Attempt> attempts)
         {
             DisplayAttempts(attempts);
-            PrintLineBreak();
         }
 
         private void DisplayAttempts(List<Attempt> attempts)
         {
             PrintLineBreak();
-            _consoleIO.WriteLine("Previous attempts");
-
+            _consoleIO.WriteLine("Board");
             for (var i = 0; i < attempts.Count; ++i)
             {
                 _consoleIO.Write("Attempt #" + (i + 1));
                 _consoleIO.Write("Guess: ");
                 DisplayCirclesToConsole(attempts[i].Guess);
-                _consoleIO.WriteLine("");
+                _consoleIO.Write( "   |   ");
                 _consoleIO.Write("Hint: ");
                 DisplayCirclesToConsole(attempts[i].Result);
                 _consoleIO.WriteLine("");
@@ -173,9 +170,21 @@ namespace Mastermind.IO
             _consoleIO.Clear();
         }
 
+        public void DisplayInvalidRounds()
+        {
+            DisplayError("Error: Invalid number of rounds, please enter a number greater than 0");
+            _consoleIO.WriteLine("\n");
+        }
+
+        public void DisplayInvalidNumPegs()
+        {
+            DisplayError("Error: Invalid number of pegs, please try again.");
+            _consoleIO.WriteLine("\n");
+        }
+
         public void DisplayGameState(int maxRounds, int maxPegs)
         {
-            SuccessDisplay("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +
+            DisplaySuccess("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +
                            maxPegs + " number of pegs.");
             _consoleIO.WriteLine("");
         }
@@ -189,9 +198,9 @@ namespace Mastermind.IO
         public void DisplayCurrentRound(int numRounds, int maxRounds)
         {
             MakeBold("Round: ");
-            SuccessDisplay(numRounds.ToString());
+            DisplaySuccess(numRounds.ToString());
             _consoleIO.Write(" out of ");
-            ErrorDisplay(maxRounds.ToString());
+            DisplayError(maxRounds.ToString());
             _consoleIO.WriteLine("");
         }
 
@@ -202,37 +211,42 @@ namespace Mastermind.IO
 
         private void DisplayRules()
         {
-            MakeBold("RULES ✔");
+            _consoleIO.WriteLine(MakeBold("RULES ✔"));
             PrintLineBreak();
             _consoleIO.WriteLine(
                 "Welcome to Mastermind! you need to guess the correct position and colour of the randomized board.\n");
             _consoleIO.Write("Hints will be given at the end of each round as a ");
-            ErrorDisplay("randomized");
+            DisplayError("randomized");
             _consoleIO.WriteLine(" list of colours.");
             _consoleIO.WriteLine("- ⚫(Black) means a correct colour and position");
             _consoleIO.WriteLine("- ⚪(White) means a correct colour but incorrect position\n");
-            MakeItalicized("*Note: If your colour doesn't exist, no value will be added to the list of hints.");
+            _consoleIO.WriteLine(MakeItalicized("*Note: If your colour doesn't exist, no value will be added to the list of hints."));
             _consoleIO.WriteLine("\n");
         }
 
-        private void MakeItalicized(string s)
+        private void MakeBordered(string s)
         {
-            _consoleIO.Write("\x1b[3m" + s + "\x1b[0m");
+            
         }
 
-        private void MakeBold(string s)
+        private string MakeItalicized(string s)
         {
-            _consoleIO.Write("\x1b[1m" + s + "\x1b[0m");
+            return "\x1b[3m" + s + "\x1b[0m";
         }
 
-        private void ErrorDisplay(string s)
+        private string MakeBold(string s)
+        {
+            return "\x1b[1m" + s + "\x1b[0m";
+        }
+
+        private void DisplayError(string s)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write(s);
             Console.ResetColor();
         }
 
-        private void SuccessDisplay(string s)
+        private void DisplaySuccess(string s)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(s);

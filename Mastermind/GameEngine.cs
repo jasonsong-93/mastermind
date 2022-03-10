@@ -23,16 +23,17 @@ namespace Mastermind
 
         public GameStatistics Run()
         {
+            // Initialization
             _userOutput.DisplayMenu();
             _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
             _userOutput.DisplayGameState(maxRounds, maxPegs);
             _userOutput.Countdown();
-
             var gameFinished = false;
             var numRounds = 0;
 
+            // Get the first solution and start main loop
             var solution = _codeMaker.GetSolutionCode(maxPegs);
             while (!gameFinished && (numRounds < maxRounds))
             {

@@ -15,6 +15,50 @@ namespace Mastermind.IO
             _userOutput = userOutput;
         }
 
+        public int GetValidMaxRounds()
+        {
+            var valid = false;
+            var result = 0;
+            while (!valid)
+            {
+                _userOutput.PromptUserForMaxRounds();
+                var input = _consoleIO.ReadLine();
+                if (!int.TryParse(input, out var numRounds) || !(numRounds > 0))
+                {
+                    _userOutput.DisplayInvalidRounds();
+                }
+                else
+                {
+                    valid = true;
+                    result = numRounds;
+                }
+            }
+
+            return result;
+        }
+
+        public int ValidateNumCodePegs()
+        {
+            var result = 0;
+            var valid = false;
+            while (!valid)
+            {
+                _userOutput.PromptUserForNumPegs();
+                var input = _consoleIO.ReadLine();
+                if (!int.TryParse(input, out var numPegs) || numPegs is not (4 or 6))
+                {
+                    _userOutput.DisplayInvalidNumPegs();
+                }
+                else
+                {
+                    valid = true;
+                    result = numPegs;
+                }
+            }
+
+            return result;
+        }
+
         public Color[] PlayerGuess()
         {
             var colorArray = new Color[MaxValues];
@@ -34,54 +78,6 @@ namespace Mastermind.IO
             }
 
             return colorArray;
-        }
-
-
-
-        public int GetValidMaxRounds()
-        {
-            var valid = false;
-            var result = 0;
-            while (!valid)
-            {
-                _userOutput.PromptUserForMaxRounds();
-                var input = _consoleIO.ReadLine();
-                if (!int.TryParse(input, out var numRounds) || !(numRounds > 0))
-                {
-                    _consoleIO.WriteLine("Error: Invalid number of rounds, please enter a number greater than 0");
-                }
-                else
-                {
-                    valid = true;
-                    result = numRounds;
-                    _consoleIO.WriteLine("");
-                }
-            }
-            return result;
-        }
-        
-        public int ValidateNumCodePegs()
-        {
-            var result = 0;
-            var valid = false;
-            while (!valid)
-            {
-                _userOutput.PromptUserForNumPegs();
-                var input = _consoleIO.ReadLine();
-                if (!int.TryParse(input, out var numPegs) || numPegs is not (4 or 6))
-                {
-                    
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        _consoleIO.WriteLine("Error: Invalid number of pegs, please try again.");
-                        Console.ResetColor();
-                }
-                else
-                {
-                        valid = true;
-                        result = numPegs;
-                }
-            }
-            return result;
         }
     }
 }

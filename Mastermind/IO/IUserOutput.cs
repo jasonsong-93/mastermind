@@ -17,5 +17,7 @@ namespace Mastermind.IO
         void PromptUserForNumPegs();
         void DisplayCurrentRound(int numRounds, int maxRounds);
         void ClearOutput();
+        void DisplayInvalidRounds();
+        void DisplayInvalidNumPegs();
     }
 }
