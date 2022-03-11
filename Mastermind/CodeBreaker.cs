@@ -60,6 +60,7 @@ namespace Mastermind
                     }
                 }
             }
+            result.ShuffleMe();
             return result;
         }
 
