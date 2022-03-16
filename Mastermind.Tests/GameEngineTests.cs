@@ -14,7 +14,7 @@ namespace Mastermind.Tests
         private readonly Mock<IUserOutput> _userOutputMock = new();
         private readonly Mock<IGameState> _gameState = new();
         private readonly Color[] _mockSolution = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
-        private readonly int _numPegs = 4;
+        private const int NumPegs = 4;
 
         [Fact]
         public void Run_ShouldReturnAValidGameStatistics()
@@ -34,7 +34,7 @@ namespace Mastermind.Tests
             _gameState.Setup(g => g.MaxRounds).Returns(60);
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
             _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
-            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, _numPegs)).Returns(false).Returns(false)
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, NumPegs)).Returns(false).Returns(false)
                 .Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
             // Act
@@ -51,12 +51,12 @@ namespace Mastermind.Tests
             _gameState.Setup(g => g.MaxRounds).Returns(60);
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
             _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
-            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, _numPegs)).Returns(false).Returns(false)
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, NumPegs)).Returns(false).Returns(false)
                 .Returns(true);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object,
                 _userOutputMock.Object, _gameState.Object);
             ge.Run();
-            _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution, _numPegs), Times.Exactly(3));
+            _codeBreakerMock.Verify(c => c.CodeBroken(_mockSolution, NumPegs), Times.Exactly(3));
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace Mastermind.Tests
             _gameState.Setup(g => g.MaxRounds).Returns(2);
             _gameState.Setup(g => g.NumCodePegs).Returns(4);
             _codeMakerMock.Setup(c => c.GetSolutionCode(4)).Returns(_mockSolution);
-            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, _numPegs)).Returns(false).Returns(false);
+            _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, NumPegs)).Returns(false).Returns(false);
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object,
                 _userOutputMock.Object, _gameState.Object);
             ge.Run();
