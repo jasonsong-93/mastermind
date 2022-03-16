@@ -32,13 +32,6 @@ namespace Mastermind.IO
             DisplayRules();
             DisplayValidColours();
         }
-
-        public void DisplaySolution(Color[] solution)
-        {
-            _consoleIO.WriteLine("The solution was: ");
-            DisplayCirclesToConsole(solution);
-        }
-
         public void DisplayCodeBreaker()
         {
             DisplayTitle();
@@ -46,14 +39,17 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("*********");
             DisplayValidColours();
         }
-
-        public void DisplayWin()
+        public void DisplayWin(Color[] solution)
         {
             DisplaySuccess("***Congratulations on cracking the code!");
-            _consoleIO.ReadKey();
-            _consoleIO.WriteLine("\nPress any key to continue ...");
+            DisplaySolution(solution);
         }
-
+        private void DisplaySolution(Color[] solution)
+        {
+            _consoleIO.WriteLine(MakeBold("The solution was: "));
+            DisplayCirclesToConsole(solution);
+            _consoleIO.WriteLine("\n");
+        }
         public void DisplayNotMatchingResult(List<ResultColor> result)
         {
             _consoleIO.WriteLine("");
@@ -75,23 +71,19 @@ namespace Mastermind.IO
             _consoleIO.Clear();
         }
 
-        public void DisplayMaxRoundsExceeded()
+        public void DisplayMaxRoundsExceeded(Color[] solution)
         {
             DisplayTitle();
             DisplayError("You've reached the maximum allocated rounds, ending game.");
-            _consoleIO.WriteLine("\nBetter luck next time ...");
-            _consoleIO.ReadKey();
-            _consoleIO.WriteLine("\nPress any key to continue ...");
+            _consoleIO.WriteLine("\nBetter luck next time ...\n\n");
+            DisplaySolution(solution);
         }
-
-
         public void DisplayBoard(List<Attempt> attempts)
         {
             _consoleIO.WriteLine("Board");
             DisplayAttempts(attempts);
             _consoleIO.WriteLine("");
         }
-
         private void DisplayAttempts(List<Attempt> attempts)
         {
             for (var i = 0; i < attempts.Count; ++i)
@@ -105,7 +97,6 @@ namespace Mastermind.IO
                 _consoleIO.WriteLine("");
             }
         }
-        
         private void DisplayCirclesToConsole(List<ResultColor> colorsToPrint)
         {
             var sb = new StringBuilder();
@@ -251,14 +242,13 @@ namespace Mastermind.IO
         public void DisplayStatistics(List<Attempt> historyOfAttempts)
         {
             var count = 0;
-            _consoleIO.Clear();
-            DisplayTitle();
-            MakeBold("RESULTS AND STATISTICS");
-            _consoleIO.WriteLine("GG, here's your list of attempts");
+            _consoleIO.WriteLine("\n");
+            _consoleIO.WriteLine(MakeBold("Results and Statistics"));
+            _consoleIO.WriteLine("Here's your list of attempts");
             
             foreach (var attempt in historyOfAttempts)
             {
-                _consoleIO.Write("Attempt #" + count + ": ");
+                _consoleIO.Write("Attempt #" + (count  + 1) + ": ");
                 _consoleIO.Write("Guess: " );
                 foreach (var color in attempt.Guess)
                 {

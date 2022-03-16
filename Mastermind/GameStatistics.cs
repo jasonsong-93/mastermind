@@ -34,7 +34,7 @@ namespace Mastermind
 
 
 
-        public void PrintToConsole()
+        public void Display()
         {
             _userOutput.DisplayStatistics(HistoryList);
         }

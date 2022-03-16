@@ -8,6 +8,7 @@ namespace Mastermind.Tests
     public class UserOutputTests
     {
         readonly Mock<IConsoleIO> _consoleIOMock = new();
+        private readonly Color[] _mockSolution = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
 
         [Fact]
         public void DisplayIntroMessage_ShouldCorrectlyDisplayIntroMessage()
@@ -42,7 +43,7 @@ namespace Mastermind.Tests
         {
             var s = "You've reached the maximum allocated rounds, ending game.";
             var uo = new UserOutput(_consoleIOMock.Object);
-            uo.DisplayMaxRoundsExceeded();
+            uo.DisplayMaxRoundsExceeded(_mockSolution);
             _consoleIOMock.Verify(c=>c.WriteLine(s));
         }
         

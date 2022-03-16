@@ -39,15 +39,14 @@ namespace Mastermind
                 codeSuccessfullyBroken = _codeBreaker.CodeBroken(solution, maxPegs);
                 if (codeSuccessfullyBroken)
                 {
-                    _userOutput.DisplayWin();
+                    _userOutput.DisplayWin(solution);
                 }
                 numRounds++;
                 if (numRounds == maxRounds && !codeSuccessfullyBroken)
                 {
-                    _userOutput.DisplayMaxRoundsExceeded();
+                    _userOutput.DisplayMaxRoundsExceeded(solution);
                 }
             }
-            _userOutput.DisplaySolution(solution);
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory, _userOutput);
         }
