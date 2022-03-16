@@ -38,25 +38,35 @@ namespace Mastermind
         {
             var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x =>
                 x.Key, x => x.Count());
+            var guessColorFrequencyDictionary = guess.GroupBy(x => x).ToDictionary(x =>
+                x.Key, x => x.Count());
             var result = new List<ResultColor>();
-            for (var i = 0; i < guess.Length; ++i)
+            var resultSize = solution.Length;
+            
+            
+            // Resolve all the black elements first
+            for (var i = 0; i < resultSize; ++i)
             {
-                var containsKey = solutionColorFrequencyDictionary.ContainsKey(guess[i]);
-                if (containsKey)
+                // iterate through both the solution and guess
+                // arrays, add black values in and decrement corresponding values from both dictionaries
+                if (guess[i] == solution[i])
                 {
-                    var frequencyGreaterThanZero = solutionColorFrequencyDictionary[guess[i]] > 0;
-                    if (frequencyGreaterThanZero)
+                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                    DecrementFrequency(guessColorFrequencyDictionary, guess[i]);
+                    result.Add(ResultColor.Black);
+                }
+            }
+            // Resolve white elements that exist afterwards
+            foreach (var kvp in solutionColorFrequencyDictionary)
+            {
+                var colorFromSolution = kvp.Key;
+                if (solutionColorFrequencyDictionary.ContainsKey(colorFromSolution))
+                {
+                    var numWhites = Math.Min(solutionColorFrequencyDictionary[colorFromSolution],
+                        guessColorFrequencyDictionary[colorFromSolution]);
+                    for (int i = 0; i < numWhites; i++)
                     {
-                        if (solution[i] == guess[i])
-                        {
-                            result.Add(ResultColor.Black);
-                            DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
-                        }
-                        else
-                        {
-                            result.Add(ResultColor.White);
-                            DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
-                        }
+                        result.Add(ResultColor.White);
                     }
                 }
             }
