@@ -1,6 +1,6 @@
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model.Interfaces
 {
     public interface IGameState
     {

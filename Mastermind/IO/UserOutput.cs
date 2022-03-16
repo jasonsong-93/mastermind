@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 
 namespace Mastermind.IO
 {
@@ -9,7 +11,7 @@ namespace Mastermind.IO
     {
         private readonly IConsoleIO _consoleIO;
 
-        private readonly string title = @"
+        private const string Title = @"
 
 ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ 
 ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗
@@ -20,6 +22,7 @@ namespace Mastermind.IO
                                                                                     
 
 ";
+
         public UserOutput(IConsoleIO consoleIO)
         {
             _consoleIO = consoleIO;
@@ -32,6 +35,7 @@ namespace Mastermind.IO
             DisplayRules();
             DisplayValidColours();
         }
+
         public void DisplayCodeBreaker()
         {
             DisplayTitle();
@@ -39,17 +43,20 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("*********");
             DisplayValidColours();
         }
+
         public void DisplayWin(Color[] solution)
         {
             DisplaySuccess("***Congratulations on cracking the code!");
             DisplaySolution(solution);
         }
+
         private void DisplaySolution(Color[] solution)
         {
             _consoleIO.WriteLine(MakeBold("The solution was: "));
             DisplayCirclesToConsole(solution);
             _consoleIO.WriteLine("\n");
         }
+
         public void DisplayNotMatchingResult(List<ResultColor> result)
         {
             _consoleIO.WriteLine("");
@@ -64,8 +71,8 @@ namespace Mastermind.IO
                 {
                     _consoleIO.Write(ConvertToEmoji(resultColor) + " ");
                 }
-                
             }
+
             _consoleIO.WriteLine("\nPress any key to continue ...");
             _consoleIO.ReadKey();
             _consoleIO.Clear();
@@ -78,12 +85,14 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("\nBetter luck next time ...\n\n");
             DisplaySolution(solution);
         }
+
         public void DisplayBoard(List<Attempt> attempts)
         {
             _consoleIO.WriteLine("Board");
             DisplayAttempts(attempts);
             _consoleIO.WriteLine("");
         }
+
         private void DisplayAttempts(List<Attempt> attempts)
         {
             for (var i = 0; i < attempts.Count; ++i)
@@ -91,12 +100,13 @@ namespace Mastermind.IO
                 _consoleIO.Write("Attempt #" + (i + 1));
                 _consoleIO.Write("Guess: ");
                 DisplayCirclesToConsole(attempts[i].Guess);
-                _consoleIO.Write( "   |   ");
+                _consoleIO.Write("   |   ");
                 _consoleIO.Write("Hint: ");
                 DisplayCirclesToConsole(attempts[i].Result);
                 _consoleIO.WriteLine("");
             }
         }
+
         private void DisplayCirclesToConsole(List<ResultColor> colorsToPrint)
         {
             var sb = new StringBuilder();
@@ -112,11 +122,13 @@ namespace Mastermind.IO
                         sb.Append("⚪(W)");
                         break;
                 }
+
                 if (i != colorsToPrint.Count - 1)
                 {
                     sb.Append(", ");
                 }
             }
+
             _consoleIO.Write(sb.ToString());
         }
 
@@ -147,11 +159,13 @@ namespace Mastermind.IO
                         sb.Append("🟡(Y)");
                         break;
                 }
+
                 if (i != colorsToPrint.Length - 1)
                 {
                     sb.Append(", ");
                 }
             }
+
             _consoleIO.Write(sb.ToString());
         }
 
@@ -175,6 +189,7 @@ namespace Mastermind.IO
                     throw new ArgumentOutOfRangeException(nameof(color), color, null);
             }
         }
+
         private static string ConvertToEmoji(ResultColor color)
         {
             switch (color)
@@ -187,7 +202,7 @@ namespace Mastermind.IO
                     throw new ArgumentOutOfRangeException(nameof(color), color, null);
             }
         }
-      
+
         public void PromptUserForColor()
         {
             _consoleIO.WriteLine("Please enter a valid color [you can type the number or the colour]: ");
@@ -234,6 +249,7 @@ namespace Mastermind.IO
         {
             _consoleIO.WriteLine(ConvertToEmoji(color) + " accepted!");
         }
+
         public void DisplayInvalidColorFromUser()
         {
             DisplayError("Please enter a valid color or number.\n\n");
@@ -245,20 +261,22 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("\n");
             _consoleIO.WriteLine(MakeBold("Results and Statistics"));
             _consoleIO.WriteLine("Here's your list of attempts");
-            
+
             foreach (var attempt in historyOfAttempts)
             {
-                _consoleIO.Write("Attempt #" + (count  + 1) + ": ");
-                _consoleIO.Write("Guess: " );
+                _consoleIO.Write("Attempt #" + (count + 1) + ": ");
+                _consoleIO.Write("Guess: ");
                 foreach (var color in attempt.Guess)
                 {
                     _consoleIO.Write(ConvertToEmoji(color) + " ");
                 }
-                _consoleIO.Write("Hint: " );
+
+                _consoleIO.Write("Hint: ");
                 foreach (var resultColor in attempt.Result)
                 {
                     _consoleIO.Write(ConvertToEmoji(resultColor) + " ");
                 }
+
                 _consoleIO.WriteLine("");
                 count++;
             }
@@ -289,7 +307,7 @@ namespace Mastermind.IO
 
         private void DisplayTitle()
         {
-            _consoleIO.WriteLine(title);
+            _consoleIO.WriteLine(Title);
         }
 
         private void DisplayRules()
@@ -303,7 +321,8 @@ namespace Mastermind.IO
             _consoleIO.WriteLine(" list of colours.");
             _consoleIO.WriteLine("- ⚫(Black) means a correct colour and position");
             _consoleIO.WriteLine("- ⚪(White) means a correct colour but incorrect position\n");
-            _consoleIO.WriteLine(MakeItalicized("*Note: If your colour doesn't exist, no value will be added to the list of hints."));
+            _consoleIO.WriteLine(
+                MakeItalicized("*Note: If your colour doesn't exist, no value will be added to the list of hints."));
             _consoleIO.WriteLine("\n");
         }
 

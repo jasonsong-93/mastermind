@@ -1,5 +1,6 @@
 using System;
-using System.Threading;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 
 namespace Mastermind.IO
 {
@@ -35,6 +36,7 @@ namespace Mastermind.IO
 
             return result;
         }
+
         public int ValidateNumCodePegs()
         {
             var result = 0;
@@ -59,7 +61,6 @@ namespace Mastermind.IO
 
         public Color[] PlayerGuess(int numPegs)
         {
-            
             var colorArray = new Color[numPegs];
             for (var i = 0; i < numPegs; ++i)
             {

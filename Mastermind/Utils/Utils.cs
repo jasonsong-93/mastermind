@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mastermind.Model;
 
-namespace Mastermind
+namespace Mastermind.Utils
 {
     public static class Utils
     {
@@ -14,9 +15,9 @@ namespace Mastermind
             var guessColorFrequencyDictionary = guess.GroupBy(x => x).ToDictionary(x =>
                 x.Key, x => x.Count());
             var result = new List<ResultColor>();
-            
+
             var resultSize = solution.Length;
-            
+
             // Resolve all the black elements first
             for (var i = 0; i < resultSize; ++i)
             {
@@ -29,39 +30,41 @@ namespace Mastermind
                     result.Add(ResultColor.Black);
                 }
             }
+
             // Resolve white elements that exist afterwards
             // Firstly check which dictionary has more keys for efficiency
-
             var lessKeys = GetDictionaryWithLessKeys(solutionColorFrequencyDictionary, guessColorFrequencyDictionary);
             var moreKeys = GetDictionaryWithMoreKeys(solutionColorFrequencyDictionary, guessColorFrequencyDictionary);
-            foreach (var kvp in lessKeys)
+            foreach (var numWhites in from kvp in lessKeys
+                select kvp.Key
+                into keyToCheck
+                where moreKeys.ContainsKey(keyToCheck)
+                select Math.Min(solutionColorFrequencyDictionary[keyToCheck],
+                    guessColorFrequencyDictionary[keyToCheck]))
             {
-                var keyToCheck = kvp.Key;
-                if (moreKeys.ContainsKey(keyToCheck))
+                for (var i = 0; i < numWhites; i++)
                 {
-                    var numWhites = Math.Min(solutionColorFrequencyDictionary[keyToCheck],
-                        guessColorFrequencyDictionary[keyToCheck]);
-                    for (int i = 0; i < numWhites; i++)
-                    {
-                        result.Add(ResultColor.White);
-                    }
+                    result.Add(ResultColor.White);
                 }
             }
+
             result.ShuffleMe();
             return result;
         }
 
-        private static void DecrementFrequency(Dictionary<Color, int> dictionary, Color keyToDecrement)
+        private static void DecrementFrequency(IDictionary<Color, int> dictionary, Color keyToDecrement)
         {
             dictionary[keyToDecrement]--;
         }
 
-        private static Dictionary<Color, int> GetDictionaryWithLessKeys(Dictionary<Color, int> dictionary1, Dictionary<Color, int> dictionary2)
+        private static Dictionary<Color, int> GetDictionaryWithLessKeys(Dictionary<Color, int> dictionary1,
+            Dictionary<Color, int> dictionary2)
         {
             return dictionary1.Count >= dictionary2.Count ? dictionary1 : dictionary2;
         }
 
-        private static Dictionary<Color, int> GetDictionaryWithMoreKeys(Dictionary<Color, int> dictionary1, Dictionary<Color, int> dictionary2)
+        private static Dictionary<Color, int> GetDictionaryWithMoreKeys(Dictionary<Color, int> dictionary1,
+            Dictionary<Color, int> dictionary2)
         {
             return dictionary1.Count < dictionary2.Count ? dictionary1 : dictionary2;
         }

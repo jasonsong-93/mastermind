@@ -1,6 +1,6 @@
 ﻿using System;
-using Mastermind;
 using Mastermind.IO;
+using Mastermind.Model;
 
 var io = new ConsoleIO();
 var userOutput = new UserOutput(io);

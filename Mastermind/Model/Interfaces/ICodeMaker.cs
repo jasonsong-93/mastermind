@@ -1,4 +1,4 @@
-namespace Mastermind
+namespace Mastermind.Model.Interfaces
 {
     public interface ICodeMaker
     {

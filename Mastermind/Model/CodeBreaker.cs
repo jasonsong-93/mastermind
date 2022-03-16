@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class CodeBreaker : ICodeBreaker
     {
@@ -22,7 +22,7 @@ namespace Mastermind
         {
             CodeBreakerDisplay();
             var guess = _userInput.PlayerGuess(numPegs);
-            var result = Utils.CalculateResult(guess, solution);
+            var result = Utils.Utils.CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);
             Attempts.Add(attempt);
             if (solution.SequenceEqual(guess)) return true;

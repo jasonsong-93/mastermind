@@ -1,4 +1,4 @@
-namespace Mastermind
+namespace Mastermind.Model
 {
     public enum ResultColor
     {

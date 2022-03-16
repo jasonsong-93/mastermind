@@ -1,8 +1,9 @@
 using System;
+using Mastermind.IO.Interfaces;
 
 namespace Mastermind.IO
 {
-    class ConsoleIO : IConsoleIO
+    internal class ConsoleIO : IConsoleIO
     {
         public void WriteLine(string s)
         {

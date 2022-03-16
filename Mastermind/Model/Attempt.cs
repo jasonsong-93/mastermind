@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class Attempt
     {
-        
         public readonly Color[] Guess;
         public readonly List<ResultColor> Result;
 
@@ -14,7 +13,8 @@ namespace Mastermind
             Guess = guess;
             Result = result;
         }
-        protected bool Equals(Attempt other)
+
+        private bool Equals(Attempt other)
         {
             return Equals(Guess, other.Guess) && Equals(Result, other.Result);
         }
@@ -31,6 +31,5 @@ namespace Mastermind
         {
             return HashCode.Combine(Guess, Result);
         }
-
     }
 }

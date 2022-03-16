@@ -1,6 +1,7 @@
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class GameState : IGameState
     {

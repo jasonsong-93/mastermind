@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Mastermind.Model;
 
-namespace Mastermind.IO
+namespace Mastermind.IO.Interfaces
 {
     public interface IUserOutput
     {
@@ -16,7 +17,6 @@ namespace Mastermind.IO
         void DisplayGameState(int maxRounds, int maxPegs);
         void PromptUserForNumPegs();
         void DisplayCurrentRound(int numRounds, int maxRounds);
-        void ClearOutput();
         void DisplayInvalidRounds();
         void DisplayInvalidNumPegs();
         void DisplayValidColorFromUser(Color color);

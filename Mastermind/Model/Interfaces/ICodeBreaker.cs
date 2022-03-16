@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Mastermind
+namespace Mastermind.Model.Interfaces
 {
     public interface ICodeBreaker
     {

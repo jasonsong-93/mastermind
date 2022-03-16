@@ -1,6 +1,7 @@
 using System;
+using Mastermind.Model.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class Randomizer : IRandomizer
     {

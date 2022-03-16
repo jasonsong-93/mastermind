@@ -1,8 +1,9 @@
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
-    public class GameEngine : IGameEngine
+    public class GameEngine
     {
         private readonly ICodeBreaker _codeBreaker;
         private readonly ICodeMaker _codeMaker;
@@ -24,15 +25,15 @@ namespace Mastermind
         {
             var codeSuccessfullyBroken = false;
             var numRounds = 1;
-            
+
             _userOutput.DisplayMenu();
             _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
-            
+
             _userOutput.DisplayGameState(maxRounds, maxPegs);
             _userOutput.Countdown();
-            
+
             var solution = _codeMaker.GetSolutionCode(maxPegs);
             while (!codeSuccessfullyBroken && numRounds <= maxRounds)
             {
@@ -42,15 +43,16 @@ namespace Mastermind
                 {
                     _userOutput.DisplayWin(solution);
                 }
+
                 numRounds++;
                 if (numRounds > maxRounds && !codeSuccessfullyBroken)
                 {
                     _userOutput.DisplayMaxRoundsExceeded(solution);
                 }
             }
+
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory, _userOutput);
         }
-        
     }
 }

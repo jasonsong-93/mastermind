@@ -1,4 +1,4 @@
-namespace Mastermind.IO
+namespace Mastermind.IO.Interfaces
 {
     public interface IConsoleIO
     {

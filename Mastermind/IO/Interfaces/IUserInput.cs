@@ -1,4 +1,6 @@
-namespace Mastermind.IO
+using Mastermind.Model;
+
+namespace Mastermind.IO.Interfaces
 {
     public interface IUserInput
     {

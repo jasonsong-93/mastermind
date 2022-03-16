@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
 
-namespace Mastermind
+namespace Mastermind.Model
 {
     public class GameStatistics
     {
@@ -14,7 +13,8 @@ namespace Mastermind
             _userOutput = userOutput;
             HistoryList = historyList;
         }
-        protected bool Equals(GameStatistics other)
+
+        private bool Equals(GameStatistics other)
         {
             return Equals(HistoryList, other.HistoryList);
         }
