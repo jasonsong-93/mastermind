@@ -1,4 +1,3 @@
-using System;
 using Mastermind.IO;
 
 namespace Mastermind
@@ -23,26 +22,28 @@ namespace Mastermind
 
         public GameStatistics Run()
         {
+            var codeSuccessfullyBroken = false;
+            var numRounds = 1;
+            
             _userOutput.DisplayMenu();
             _gameState.Initialize(_userInput);
             var maxPegs = _gameState.NumCodePegs;
             var maxRounds = _gameState.MaxRounds;
+            
             _userOutput.DisplayGameState(maxRounds, maxPegs);
             _userOutput.Countdown();
-            var codeSuccessfullyBroken = false;
-            var numRounds = 0;
+            
             var solution = _codeMaker.GetSolutionCode(maxPegs);
-            while (!codeSuccessfullyBroken && (numRounds < maxRounds))
+            while (!codeSuccessfullyBroken && numRounds <= maxRounds)
             {
-                _userOutput.ClearOutput();
-                _userOutput.DisplayCurrentRound(numRounds + 1, maxRounds);
+                _userOutput.DisplayCurrentRound(numRounds, maxRounds);
                 codeSuccessfullyBroken = _codeBreaker.CodeBroken(solution, maxPegs);
                 if (codeSuccessfullyBroken)
                 {
                     _userOutput.DisplayWin(solution);
                 }
                 numRounds++;
-                if (numRounds == maxRounds && !codeSuccessfullyBroken)
+                if (numRounds > maxRounds && !codeSuccessfullyBroken)
                 {
                     _userOutput.DisplayMaxRoundsExceeded(solution);
                 }
@@ -50,5 +51,6 @@ namespace Mastermind
             var guessHistory = _codeBreaker.Attempts;
             return new GameStatistics(guessHistory, _userOutput);
         }
+        
     }
 }

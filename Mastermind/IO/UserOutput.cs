@@ -279,6 +279,7 @@ namespace Mastermind.IO
 
         public void DisplayCurrentRound(int numRounds, int maxRounds)
         {
+            ClearOutput();
             MakeBold("Round: ");
             DisplaySuccess(numRounds.ToString());
             _consoleIO.Write(" out of ");

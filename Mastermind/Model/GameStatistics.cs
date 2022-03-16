@@ -7,7 +7,7 @@ namespace Mastermind
     public class GameStatistics
     {
         private readonly IUserOutput _userOutput;
-        public List<Attempt> HistoryList { get; }
+        private List<Attempt> HistoryList { get; }
 
         public GameStatistics(List<Attempt> historyList, IUserOutput userOutput)
         {
@@ -32,12 +32,9 @@ namespace Mastermind
             return (HistoryList != null ? HistoryList.GetHashCode() : 0);
         }
 
-
-
         public void Display()
         {
             _userOutput.DisplayStatistics(HistoryList);
         }
-
     }
 }

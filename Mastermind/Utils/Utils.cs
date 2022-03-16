@@ -1,43 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mastermind.IO;
 
 namespace Mastermind
 {
-    public class CodeBreaker : ICodeBreaker
+    public static class Utils
     {
-        private readonly IUserInput _userInput;
-        private readonly IUserOutput _userOutput;
-        public List<Attempt> Attempts { get; }
-
-        public CodeBreaker(IUserInput userInput, IUserOutput userOutput)
-        {
-            _userInput = userInput;
-            _userOutput = userOutput;
-            Attempts = new List<Attempt>();
-        }
-
-        public bool CodeBroken(Color[] solution, int numPegs)
-        {
-            _userOutput.DisplayCodeBreaker();
-            _userOutput.DisplayBoard(Attempts);
-            var guess = _userInput.PlayerGuess(numPegs);
-            var result = CalculateResult(guess, solution);
-            var attempt = new Attempt(guess, result);
-            Attempts.Add(attempt);
-            if (!solution.SequenceEqual(guess))
-            {
-                _userOutput.DisplayNotMatchingResult(result);
-                return false;
-            }
-            return true;
-        }
-
-        private static List<ResultColor> CalculateResult(Color[] guess, Color[] solution)
+        public static List<ResultColor> CalculateResult(Color[] guess, Color[] solution)
         {
             var solutionColorFrequencyDictionary = solution.GroupBy(x => x).ToDictionary(x =>
                 x.Key, x => x.Count());
+
             var guessColorFrequencyDictionary = guess.GroupBy(x => x).ToDictionary(x =>
                 x.Key, x => x.Count());
             var result = new List<ResultColor>();
@@ -82,11 +55,12 @@ namespace Mastermind
         {
             dictionary[keyToDecrement]--;
         }
-        
+
         private static Dictionary<Color, int> GetDictionaryWithLessKeys(Dictionary<Color, int> dictionary1, Dictionary<Color, int> dictionary2)
         {
-            return dictionary1.Count > dictionary2.Count ? dictionary1 : dictionary2;
+            return dictionary1.Count >= dictionary2.Count ? dictionary1 : dictionary2;
         }
+
         private static Dictionary<Color, int> GetDictionaryWithMoreKeys(Dictionary<Color, int> dictionary1, Dictionary<Color, int> dictionary2)
         {
             return dictionary1.Count < dictionary2.Count ? dictionary1 : dictionary2;
