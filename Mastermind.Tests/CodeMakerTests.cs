@@ -1,4 +1,6 @@
 ﻿using System;
+using Mastermind.Model;
+using Mastermind.Model.Interfaces;
 using Moq;
 using Xunit;
 

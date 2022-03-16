@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 using Moq;
 using Xunit;
 
@@ -7,13 +9,13 @@ namespace Mastermind.Tests
 {
     public class UserOutputTests
     {
-        readonly Mock<IConsoleIO> _consoleIOMock = new();
+        private readonly Mock<IConsoleIO> _consoleIOMock = new();
         private readonly Color[] _mockSolution = {Color.Red, Color.Blue, Color.Green, Color.Yellow};
 
         [Fact]
         public void DisplayIntroMessage_ShouldCorrectlyDisplayIntroMessage()
         {
-            var s = @"
+            const string? s = @"
 
 ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ 
 ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗
@@ -58,7 +60,8 @@ namespace Mastermind.Tests
             _consoleIOMock.Verify(c => c.WriteLine("Board"), Times.Once);
             for (var i = 0; i < attempts.Count; ++i)
             {
-                _consoleIOMock.Verify(c => c.Write("Attempt #" + (i + 1)), Times.Once);
+                var i1 = i;
+                _consoleIOMock.Verify(c => c.Write("Attempt #" + (i1 + 1)), Times.Once);
                 _consoleIOMock.Verify(c => c.Write("Guess: "), Times.Exactly(attempts.Count));
                 _consoleIOMock.Verify(c => c.Write("   |   "), Times.Exactly(attempts.Count));
                 _consoleIOMock.Verify(c => c.Write("Hint: "), Times.Exactly(attempts.Count));
@@ -71,15 +74,15 @@ namespace Mastermind.Tests
         {
             var uo = new UserOutput(_consoleIOMock.Object);
             uo.DisplayCodeBreaker();
-            _consoleIOMock.Verify(c=>c.WriteLine("*********"));
+            _consoleIOMock.Verify(c => c.WriteLine("*********"));
         }
-        
+
         [Fact]
         public void DisplayWin_ShouldCorrectlyDisplayWin()
         {
             var uo = new UserOutput(_consoleIOMock.Object);
             uo.DisplayCodeBreaker();
-            _consoleIOMock.Verify(c=>c.WriteLine(""));
+            _consoleIOMock.Verify(c => c.WriteLine(""));
         }
     }
 }

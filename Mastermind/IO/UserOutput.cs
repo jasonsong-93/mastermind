@@ -171,36 +171,26 @@ namespace Mastermind.IO
 
         private static string ConvertToEmoji(Color color)
         {
-            switch (color)
+            return color switch
             {
-                case Color.Red:
-                    return "🔴(R)";
-                case Color.Blue:
-                    return "🔵(B)";
-                case Color.Green:
-                    return "🟢(G)";
-                case Color.Orange:
-                    return "🟠(O)";
-                case Color.Purple:
-                    return "🟣(P)";
-                case Color.Yellow:
-                    return "🟡(Y)";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
-            }
+                Color.Red => "🔴(R)",
+                Color.Blue => "🔵(B)",
+                Color.Green => "🟢(G)",
+                Color.Orange => "🟠(O)",
+                Color.Purple => "🟣(P)",
+                Color.Yellow => "🟡(Y)",
+                _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+            };
         }
 
         private static string ConvertToEmoji(ResultColor color)
         {
-            switch (color)
+            return color switch
             {
-                case ResultColor.Black:
-                    return "⚫(B)";
-                case ResultColor.White:
-                    return "⚪(W)";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
-            }
+                ResultColor.Black => "⚫(B)",
+                ResultColor.White => "⚪(W)",
+                _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+            };
         }
 
         public void PromptUserForColor()
@@ -228,10 +218,6 @@ namespace Mastermind.IO
             _consoleIO.Clear();
         }
 
-        public void ClearOutput()
-        {
-            _consoleIO.Clear();
-        }
 
         public void DisplayInvalidRounds()
         {
@@ -326,24 +312,24 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("\n");
         }
 
-        private string MakeItalicized(string s)
+        private static string MakeItalicized(string s)
         {
             return "\x1b[3m" + s + "\x1b[0m";
         }
 
-        private string MakeBold(string s)
+        private static string MakeBold(string s)
         {
             return "\x1b[1m" + s + "\x1b[0m";
         }
 
-        private void DisplayError(string s)
+        private static void DisplayError(string s)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write(s);
             Console.ResetColor();
         }
 
-        private void DisplaySuccess(string s)
+        private static void DisplaySuccess(string s)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(s);
@@ -367,6 +353,11 @@ namespace Mastermind.IO
             _consoleIO.WriteLine("");
             _consoleIO.WriteLine("----------");
             _consoleIO.WriteLine("");
+        }
+
+        private void ClearOutput()
+        {
+            _consoleIO.Clear();
         }
     }
 }

@@ -23,12 +23,10 @@ namespace Mastermind.Utils
             {
                 // iterate through both the solution and guess
                 // arrays, add black values in and decrement corresponding values from both dictionaries
-                if (guess[i] == solution[i])
-                {
-                    DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
-                    DecrementFrequency(guessColorFrequencyDictionary, guess[i]);
-                    result.Add(ResultColor.Black);
-                }
+                if (guess[i] != solution[i]) continue;
+                DecrementFrequency(solutionColorFrequencyDictionary, guess[i]);
+                DecrementFrequency(guessColorFrequencyDictionary, guess[i]);
+                result.Add(ResultColor.Black);
             }
 
             // Resolve white elements that exist afterwards

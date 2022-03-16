@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
+using Mastermind.Model.Interfaces;
 using Moq;
 using Xunit;
 
@@ -69,7 +70,7 @@ namespace Mastermind.Tests
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object,
                 _userOutputMock.Object, _gameState.Object);
             ge.Run();
-            _userOutputMock.Verify(u=>u.DisplayMaxRoundsExceeded(_mockSolution), Times.Once);
+            _userOutputMock.Verify(u => u.DisplayMaxRoundsExceeded(_mockSolution), Times.Once);
         }
     }
 }

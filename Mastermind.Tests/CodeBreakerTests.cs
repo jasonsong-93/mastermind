@@ -1,4 +1,5 @@
-﻿using Mastermind.IO;
+﻿using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 using Moq;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace Mastermind.Tests
             var codeBreaker = new CodeBreaker(_userInputMock.Object, _userOutputMock.Object);
             var broken = codeBreaker.CodeBroken(_mockSolutionFourPegs, numPegs);
             Assert.Equal(result, broken);
-            _userInputMock.Verify(u=>u.PlayerGuess(numPegs), Times.Once);
+            _userInputMock.Verify(u => u.PlayerGuess(numPegs), Times.Once);
         }
     }
 }

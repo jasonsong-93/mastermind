@@ -1,4 +1,5 @@
-using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 using Moq;
 using Xunit;
 
@@ -23,16 +24,17 @@ namespace Mastermind.Tests
         [Fact]
         public void NumCodePegs_ShouldReturnValidNumPegs()
         {
-            var numPegs = 4;
+            const int numPegs = 4;
             _userInputMock.Setup(i => i.ValidateNumCodePegs()).Returns(numPegs);
             var gameState = new GameState();
             gameState.Initialize(_userInputMock.Object);
             Assert.Equal(numPegs, gameState.NumCodePegs);
         }
+
         [Fact]
         public void MaxRounds_ShouldReturnValidMaxRounds()
         {
-            var maxRounds = 10;
+            const int maxRounds = 10;
             _userInputMock.Setup(i => i.GetValidMaxRounds()).Returns(maxRounds);
             var gameState = new GameState();
             gameState.Initialize(_userInputMock.Object);

@@ -1,5 +1,6 @@
-using System.Runtime.InteropServices;
 using Mastermind.IO;
+using Mastermind.IO.Interfaces;
+using Mastermind.Model;
 using Moq;
 using Xunit;
 
@@ -7,32 +8,34 @@ namespace Mastermind.Tests
 {
     public class UserInputTests
     {
-        private readonly Mock<IConsoleIO> _mockConsole = new ();
+        private readonly Mock<IConsoleIO> _mockConsole = new();
         private readonly Mock<IUserOutput> _userOutputMock = new();
-        private readonly int _numPegs = 4;
+        private const int NumPegs = 4;
 
 
         [Theory]
-        [InlineData("Green", "Red", "Yellow", "Yellow", new [] {
+        [InlineData("Green", "Red", "Yellow", "Yellow", new[]
+        {
             Color.Green, Color.Red, Color.Yellow, Color.Yellow
         })]
-        [InlineData("Blue", "Red", "Yellow", "Yellow", new [] {
+        [InlineData("Blue", "Red", "Yellow", "Yellow", new[]
+        {
             Color.Blue, Color.Red, Color.Yellow, Color.Yellow
         })]
-        [InlineData("Blue", "Red", "Orange", "Yellow", new [] {
+        [InlineData("Blue", "Red", "Orange", "Yellow", new[]
+        {
             Color.Blue, Color.Red, Color.Orange, Color.Yellow
         })]
-        [InlineData("Blue", "Purple", "Yellow", "Yellow", new [] {
+        [InlineData("Blue", "Purple", "Yellow", "Yellow", new[]
+        {
             Color.Blue, Color.Purple, Color.Yellow, Color.Yellow
         })]
-        public void PlayerGuess_ShouldReturnThePlayerInputGuess(string first, string second, string third, string fourth, Color[] expected)
+        public void PlayerGuess_ShouldReturnThePlayerInputGuess(string first, string second, string third,
+            string fourth, Color[] expected)
         {
-            // arrange
             _mockConsole.SetupSequence(c => c.ReadLine()).Returns(first).Returns(second).Returns(third).Returns(fourth);
-            // act
             var ui = new UserInput(_mockConsole.Object, _userOutputMock.Object);
-            var result = ui.PlayerGuess(_numPegs);
-            // assert
+            var result = ui.PlayerGuess(NumPegs);
             Assert.Equal(expected, result);
         }
 
@@ -47,7 +50,7 @@ namespace Mastermind.Tests
             var result = ui.ValidateNumCodePegs();
             Assert.Equal(expected, result);
         }
-        
+
         [Theory]
         [InlineData("4", 4)]
         [InlineData("6", 6)]
@@ -60,6 +63,5 @@ namespace Mastermind.Tests
             var result = ui.GetValidMaxRounds();
             Assert.Equal(expected, result);
         }
-        
     }
 }

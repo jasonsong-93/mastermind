@@ -23,8 +23,7 @@ namespace Mastermind.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Attempt) obj);
+            return obj.GetType() == GetType() && Equals((Attempt) obj);
         }
 
         public override int GetHashCode()
