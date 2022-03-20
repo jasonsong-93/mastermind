@@ -22,7 +22,7 @@ namespace Mastermind.Model
         {
             CodeBreakerDisplay();
             var guess = _userInput.PlayerGuess(numPegs);
-            var result = Utils.Utils.CalculateResult(guess, solution);
+            var result = Utils.ColourCalculator.CalculateResult(guess, solution);
             var attempt = new Attempt(guess, result);
             Attempts.Add(attempt);
             if (solution.SequenceEqual(guess)) return true;

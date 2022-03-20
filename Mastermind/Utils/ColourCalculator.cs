@@ -5,7 +5,7 @@ using Mastermind.Model;
 
 namespace Mastermind.Utils
 {
-    public static class Utils
+    public static class ColourCalculator
     {
         public static List<ResultColor> CalculateResult(Color[] guess, Color[] solution)
         {

@@ -38,11 +38,9 @@ namespace Mastermind.Tests
             _codeBreakerMock.SetupSequence(c => c.CodeBroken(_mockSolution, NumPegs)).Returns(false).Returns(false)
                 .Returns(true);
             _codeBreakerMock.Setup(c => c.Attempts).Returns(historyList);
-            // Act
             var ge = new GameEngine(_codeBreakerMock.Object, _codeMakerMock.Object, _userInputMock.Object,
                 _userOutputMock.Object, _gameState.Object);
             var finalStats = ge.Run();
-            // Assert
             Assert.Equal(new GameStatistics(historyList, _userOutputMock.Object), finalStats);
         }
 
