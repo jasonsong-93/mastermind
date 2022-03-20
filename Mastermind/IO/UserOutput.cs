@@ -195,7 +195,7 @@ namespace Mastermind.IO
 
         public void PromptUserForColor()
         {
-            _consoleIO.WriteLine("Please enter a valid color [you can type the number or the colour]: ");
+            _consoleIO.WriteLine("Please enter a valid colour [you can type the number or the colour]: ");
         }
 
         public void PromptUserForMaxRounds()
@@ -270,8 +270,8 @@ namespace Mastermind.IO
 
         public void DisplayGameState(int maxRounds, int maxPegs)
         {
-            DisplaySuccess("\nGame has been successfully initialized with " + maxRounds + " number of rounds and " +
-                           maxPegs + " number of pegs.");
+            DisplaySuccess("\nGame has been successfully initialized with " + maxRounds + " rounds and " +
+                           maxPegs + " pegs.");
             _consoleIO.WriteLine("");
         }
 
