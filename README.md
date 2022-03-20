@@ -3,18 +3,6 @@
 
 Jason Song - Quorum Review 1, MYOB. 
 
-
-
-## Features
-
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
-
-
-## Acknowledgements
-I would like to say a big thank you to my mentors, Luke Wang and Tuan Anh Le 
 ## Game Rules
 
 Mastermind is a code-breaking game for two players. 
@@ -36,11 +24,6 @@ Please note that the hint you receive is completely randomized (unlike Wordle fo
 | Purple | 🟣 |
 | Yellow | 🟡 |
 
-## Authors
-
-- [@jasonsong-93](https://www.github.com/jasonsong-93)
-
-
 
 ## Usage/Examples
 
@@ -59,3 +42,12 @@ The main Optimizations in the codebase would be to the following:
 - Implementing a better algorithm for code breaker
 - Allow the input to be of any type by allowing the input data type to be flexible via the C# feature of Generic types
 - Provide various modes so the user is able to use numbers, colours or even images (Wikipedia contains multiple various versions of the game)
+
+
+## Authors
+
+- [@jasonsong-93](https://www.github.com/jasonsong-93)
+
+
+## Acknowledgements
+I would like to say a big thank you to my mentors, Luke Wang and Tuan Anh Le 
